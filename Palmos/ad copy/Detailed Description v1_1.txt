@@ -1,0 +1,29 @@
+<img src="http://plm.snow.org/palm/"D20_logo_RGB.jpg"> A d20 System Licensed Product.
+
+<p>Combat-Q keeps track of when characters get to act during combat, as well as when their spells expire. This lets the Dungeon Master play the game and not shuffle through papers looking up initiative check results. Never hear the cry "Hey, I think you skipped my turn!" from a player again! Easily keep track of what spells are in play. </p>
+      <p>What Combat-Q can do for you: 
+      <ul>
+        <li>Quickly record initiative rolls made by players or Dungeon Master 
+        <li>Automatically calculate initiative check results from initiative rolls 
+        <li>Skip actions of unaware characters during surprise round 
+        <li>Handle Delay actions 
+        <li>Handle Ready actions 
+        <li>Handle Refocus actions 
+        <li>Remind when characters get partial actions because of surprise or 
+          readying 
+        <li>Easily handle mass carnage by removing characters from combat 
+        <li>Track combat round number, including surprise round when needed 
+        <li>Quickly create customized spells or other effects, like Barbarian 
+          Rage 
+        <li>Offer unique default names to minimize text entry 
+        <li>Quickly make up to 20 duplicates of any character/spell 
+        <li>Display overview screen for arbitrary editing of initiative check 
+          results 
+        <li>Back up data to desktop computer on HotSync 
+        <li>Follow standard Palm OS interface guidelines for easy learning curve 
+        <li>Offer lots of built-in help screens 
+      </ul>
+
+<p>For you D20 fans and programmers, the download includes, under the Open Gaming License, my C++ source code that implements an initiative list using a double-linked buffer data structure.
+
+<p>Requires the use of the Dungeons & Dragons(R) Player's Handbook, Third Edition, published by Wizards of the Coast, Inc. Dungeons & Dragons(R) and Wizards of the Coast(R) are registered trademarks of Wizards of the Coast, Inc., a subsidiary of Hasbro, Inc., and are used with permission.

@@ -1,0 +1,33 @@
+#include "MainRsc.h"
+
+
+
+FORM ID DelayFormID  AT ( 2 76 156 83 )
+MODAL HELPID DelayHelpString
+BEGIN
+     TITLE "Delaying"
+     LABEL "Enter Initiative to act on:" AUTOID AT (3 15) FONT 1
+     LABEL "(" AUTOID AT (PREVLEFT PREVBOTTOM) FONT 1
+     FIELD ID MaxDelayFieldID AT (PREVRIGHT PREVTOP 20 12)
+           MAXCHARS 255 NONEDITABLE FONT 1 LEFTALIGN SINGLELINE
+     LABEL "or less)" AUTOID AT (PREVRIGHT PREVTOP) FONT 1
+     FIELD ID DelayInitFieldID  AT (PREVRIGHT+3 PREVTOP 36 12)
+           MAXCHARS 8 EDITABLE UNDERLINED FONT 0 LEFTALIGN SINGLELINE
+     LABEL "Press \"None\" to wait for another" AUTOID AT (7 PREVBOTTOM+3) FONT 0
+     LABEL "character's turn to act." AUTOID AT (PREVLEFT PREVBOTTOM)
+     BUTTON "OK" ID DoneID  AT (7 PREVBOTTOM+3 AUTO AUTO) FONT 0
+     BUTTON "None" ID NoneBID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) FONT 0
+     BUTTON "Cancel" ID CancelID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) FONT 0
+     GRAFFITISTATEINDICATOR AT (147 69)
+END
+
+ALERT ID InitOutOfRangeErrorID
+INFORMATION
+BEGIN
+     TITLE "Invalid Initiative"
+     MESSAGE "The initiative value you entered is not valid. "\
+     "Please enter a number in the displayed range and try again."
+     BUTTONS "OK"
+END
+
+STRING ID DelayHelpString FILE "DelayHelp.txt"

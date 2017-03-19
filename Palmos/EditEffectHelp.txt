@@ -1,0 +1,31 @@
+Combat-Q Edit Effect
+
+SUMMARY:
+
+Allows editing of a new or existing "continuing effect". This can be anything in the game that lasts for a limited time in combat, but does not take actions like a character. Examples include spells, barbarian rage, and stunning from a monk's stunning attack.
+
+DISPLAYS:
+
+"Owner:" - The character that created the effect, or "None", if the character has been deleted from the database.
+
+INPUTS:
+
+"Name:" - The name of the effect.
+
+"Duration (Rounds):" - How long the effect normally lasts, in combat rounds.
+
+"Rounds Remaining:" - How many more rounds the effect will last. This drops by one every time the effect's initiative value comes up while it is in combat. If the effect is added to a combat before the combat begins, this is set equal to Duration.
+
+BUTTONS:
+
+"Summon Creature" - Pops up a screen for editing a new character. This character will go after the effect's owner if the effect is new, otherwise the character will follow the effect. When the effect expires or is removed from combat, this character will leave combat too.
+
+"OK" - Accept the values entered and create or update the effect. Return to previous screen.
+
+"Delete" - Remove the effect from the database. Return to previous screen.
+
+"Cancel" - Make no changes and return to previous screen.
+
+OTHER:
+
+There is a Graffiti indicator in the lower right corner that shows current Graffiti shift status.

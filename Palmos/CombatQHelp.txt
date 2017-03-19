@@ -1,0 +1,368 @@
+Combat-Q
+d20 Initiative Tracker for Palm OS.
+Version 1.3
+
+Requires the use of the Dungeons & Dragons(R) Player's Handbook, Third Edition, published by Wizards of the Coast, Inc.
+
+The contents of the help windows and the files "CombatQOGC.cpp", "CombatQOGC.h", and "CombatQHelp.txt" (distributed with this application) are Open Game Content under the Open Game License, and may only be used under and in terms of that License. All other parts of the Combat-Q application are considered Product Identity under the Open Game License, and are copyright (c) 2004, Peter Mikelsons; all rights reserved.
+
+'d20 System' and the 'd20 System' logo are trademarks of Wizards of the Coast, Inc., a subsidiary of Hasbro, Inc., and are used according to the terms of the d20 System License version 6.0.  A copy of this License can be found at www.wizards.com/d20.
+
+Dungeons & Dragons(R) and Wizards of the Coast(R) are registered trademarks of Wizards of the Coast, Inc., a subsidiary of Hasbro, Inc., and are used with permission.
+
+======================== SUMMARY ========================
+
+This program keeps track of when characters act in a d20 System or Dungeons and Dragons combat. It also keeps track of when spells expire. It is for use on palmtops running Palm OS version 2.0 or later.
+
+======================== INSTALLATION ========================
+
+- Download the file CombatQ.zip or CombatQ_trial.zip to a desktop computer.
+
+- Unzip the file contents (CombatQ.prc or CombatQ_trial.prc, CombatQOGC.cpp, CombatQOGC.h, and CombatQHelp.txt) into a directory on the desktop computer.
+
+- Add the file CombatQ.prc or CombatQ_trial.prc to the Palm Install Tool application on the desktop computer. On Windows computers with Install Tool, you can do this by double clicking on CombatQ.prc or CombatQ_trial.prc.
+
+- HotSync your Palm OS palmtop with the desktop computer. Combat-Q will be installed on the palmtop and ready to run!
+
+- Warning: do not install and run the trial version of Combat-Q if you already have the full version installed, or you will delete any data already entered into Combat-Q.
+
+======================== REVISION HISTORY ========================
+Version 1.0 - Initial release.
+
+Version 1.1 - Minor feature upgrades and bug fixes.
+
+Always display and allow editing of initiative check results on Overview screen, regardless of whether item is active or combat has started. Display initiative check results instead of initiative rolls on Roll Initiative screen.
+
+Add hotkey ("F") for Refocus Character menu button on Play screen.
+
+Numerous defect fixes, including one that made Combat-Q reset the system if the database became corrupt.
+
+Version 1.2 - Add a minor feature and make compatible with Revised (v.3.5) System Reference Document.
+
+New feature: allow editing character's or effect's name on the Current Combatant screen.
+
+SRD change: Use initiative modifiers to break initiative check result ties.
+
+SRD change: Allow Delay to set initiative to any later count, instead of to -10 or higher. Selecting "None" on Delay screen leaves initiative count the same; this lets you Delay into the next round without Refocusing.
+
+SRD change: Replace Partial Actions with Move or Standard Actions.
+
+SRD change: Add note to help screen that Refocus action is not in v.3.5, but keep the action for Dungeon Masters who want it as a house rule. 
+
+SRD change: Update OGL.
+
+Version 1.3 - Feature upgrades and minor bug fixes.
+
+New feature: Add checkbox to characters to flag Player Characters. Between combats, PCs are sorted to the top of the overview list. The active checkbox of PCs is checked by default.
+
+New feature: Allow effects to "Summon Creatures". Summoned creatures are just characters who leave combat when the effect that summoned them ends.
+
+Bug fix: Cosmetic defect that appeare on Overview screen in Palm OS pre-v3.5 when adding characters.
+
+Bug fix: Multiple pages on Enter Initiative Rolls screen sometimes displayed wrong character names.
+
+Bug fix: Starting a second combat with a number of combatants that would fit on fewer pages of the Enter Initiative Rolls screen could cause a blank page to be displayed.
+
+Future Versions "To Do" List - 
+
+Allow undo of most recent change(s) to initiative list.
+Add support for multiple campaigns.
+Add feature to attach a text note to each character or effect.
+Roll initiative for surprised characters *after* surprise round has been resolved. This is what the rules state in both the original and Revised SRDs. Currently initiative for all characters is rolled before any surprise round.
+
+Known Bug - In Palm OS versions 3.0, 3.1, and 3.3, closing Combat-Q while the cursor is in any text field and a menu is open leaks memory (~80 bytes). Workarounds: close menus before exiting, periodically soft reset the device, or upgrade to Palm OS v3.5.
+
+======================== TUTORIAL ========================
+
+- Select the Combat-Q icon on the launcher screen.
+
+- When "Initiative Overview" is at the top of the screen, click "New" to edit details about new character, then "Done" to create the character. Repeat to create a second character, because combat with only one is boring.
+
+- Notice that the third column on the Overview screen shows initiative check results as if the characters had rolled 10's. You may edit these check results now if you like.
+
+- Check the boxes next to each character. Click "Start" to start a combat.
+
+- Grab a twenty-sided die and roll initiative for each character. Click on the name of each and enter what you rolled. Click "Start" again.
+
+- Options for the current character will be displayed. Click "Take Action". Options for the next character are displayed. Click "Take Action" again. Round number increases by one and the first character is displayed again.
+
+- Click "Create Effect" to edit details about a new continuing effect, like a spell, for the first character. Click "Take Action" twice to display how long the effect will remain. Click "Continue" to return to first character. Go through a few rounds until the effect expires.
+
+- Perform a delaying action, where the first character delays until after the second character: When it is the first character's turn, click on "Delay Turn". Click on "None". The second character's options should be displayed. Click "Trigger Delayed Action" and select the first character. Click on "Take Action". The former first character's options will be displayed, but its initiative will be the same as the former second's and the round number will not change. Click "Take Action".
+
+- Perform a readied action: Click on "Ready an Action". The next character's options will be displayed. Click on "Interrupt by Readied" and select the listed character. The readied character's options will be displayed. Click on "Take Standard or Move Action" to return to the next character.
+
+- Remove another character from combat: Click on "Remove Other", and select the other character. Click on "Take Action". Round number will increase and the same character's options will reappear, because it is the only item left in the combat.
+
+- Make a mistake? Select "Any" > "Overview" from the menu to display the Overview screen. You can edit initiatives here however you like.
+
+- Explore the other options explained below or in the on-screen help.
+
+======================== SHORTCUTS ============================
+
+Many features of Combat-Q are accessed by selecting options from the pull-down menu. All of these options can be selected by using Graffiti shortcuts: in the Graffiti "letter" area, draw a diagonal line from bottom left to top right, then enter a letter. The menus show what letters activate what features, but they are also listed here:
+
+Initiative Overview screen
+n - New character
+d - Delete item
+r - Sort items
+c - Copy item
+s - Start/resume
+. - end encounter
+h - How to use
+a - About Combat-Q
+g - open Gaming license
+
+Current Combatant screens
+a - Act
+c - Create effect
+d - Delay
+r - Ready
+f - reFocus
+o - Continue
+x - remove
+k - remove other (kill)
+i - Interrupt by readied
+t - Trigger delayed
+v - overView
+. - end combat
+
+======================== DETAILED HELP ========================
+
+The following information is available in Combat-Q's on-screen help. It is provided as a "off-line" reference and to meet the Open Gaming License.
+
+Table of Contents:
+1. Initiative Overview
+2. Roll Initiative
+3. Current Combatant
+4. Edit Character
+5. Edit Effect
+6. Delaying
+7. Ties
+
+---------------------------------------------------------------------------
+1. Combat-Q Initiative Overview
+
+SUMMARY: 
+
+Use Combat-Q to keep track of a d20 System combat. To start, click "New" to create characters, check their boxes on the overview screen, and click "Start". 
+
+The current screen gives a summary of all characters or continuing effects in the database.
+
+DISPLAY:
+
+"Round:" This gives the current round number, or "-" if no combat is in progress.
+
+"Initiative:" This gives the initiative value of the current item, or "-" if no combat is in progress.
+
+TABLE:
+
+Column 1 - Status - An arrow indicates current item, a "D" means delayed character, and "R" means readied character.
+
+Column 2 - Active Checkbox - A check means the item is in the current combat. Check to add item, uncheck to take it out.
+
+Column 3 - Initiative - Displays current initiative check result of an item. To change where an item is in the list once combat has started, edit the number and select a different field.
+
+Column 4 - Name - The name of the item. Does not need to be unique. You may edit the names of items by making changes in this column.
+
+BUTTONS:
+
+"New" - Opens a form for creating a new character.
+
+"Details" - Opens a form for editing details about the selected item.
+
+(If no combat) "Start" - Start a combat with the active items. Displays the Roll Initiative form.
+
+(If combat in progress) "Resume" - Display the Current Combatant screen.
+
+Arrow buttons - If there are more items than fit on the screens, display the next or previous set. The page up and page down keys do the same thing.
+
+MENUS:
+
+"Item" > "New Character" - Same as "New" button, above.
+
+"Item" > "Delete Item" - Delete the currently selected item from the database. WARNING, this command does NOT verify before continuing, and PERMANENTLY deletes the selected item.
+
+"Item" > "Sort Items" - Sorts the items displayed. Use this after editing names or initiatives. TIP - to separate PC's from NPC's, put a non-letter character, like "-", at the start of the names of items you want to appear before others.
+
+"Item" > "Copy Item" - Makes 1-20 copies of the currently selected item. Copies are exactly the same, except for " 01" through " 20" appended to the name. If the original was a character, the copies are not in combat. If the original was a continuing effect and in combat, the copies are also in combat.
+
+"Combat" > "Start/Resume" - Same as "Start" or "Resume" buttons, above, depending on whether combat is in progress.
+
+"Combat" > "End Encounter" - End any current combat.
+
+"Help" > "How to Use" - Displays this screen.
+
+"Help" > "About Combat-Q" - Information about this application.
+
+"Help" > "Open Gaming License" - Displays the open gaming license for this product.
+
+OTHER
+
+There is a Graffiti shift indicator that will appear in the lower right corner of the screen when you are editing initiatives or names and use a Graffiti shift stroke. 
+
+------------------------------------------------------------------------------
+2. Combat-Q Roll Initiative
+
+SUMMARY
+
+Enter the d20 initiative rolls and surprise status of all characters starting a combat. Note: Combat-Q will add the character's initiative modifier to the roll number you enter to get the character's total initiative check result. Remember to enter the roll, not the total.
+
+TABLE
+
+"Name" Column - Name of the character. Click here or on "Result" to enter its initiative roll.
+
+"Init" Column - Initiative check result of character. Click here or on "Name" to enter its initiative roll.
+
+"Awr" (Aware) Column - Indicates whether the character is aware of opponents. Uncheck the box if the character is unaware or surprised. If some characters are aware and others are not, Combat-Q will start combat with a surprise round when only the aware characters may act.
+
+BUTTONS
+
+"Start" - Start the combat. Displays the Current Combatant screen of the first item to act.
+
+"Cancel" - Return to Initiative Overview screen. All initiative rolls and aware states are saved.
+
+Arrow buttons - If there are more items than fit on the screens, display the next or previous set. The page up and page down keys do the same thing.
+------------------------------------------------------------------------------
+3. Combat-Q Current Combatant
+
+SUMMARY:
+
+Displays the character who is currently acting in the combat, or displays rounds remaining for a continuing effect. Press Page Down key or Take Action button to go on to the next item to act in the combat.
+
+DISPLAYS:
+
+"Round:" - The current round number, or "Surprise" for surprise round.
+
+"Initiative:" - The initiative count of the current item.
+
+"Name:" - Current item's name.  You may edit the name here. Hint: you can record information about a character here, if the character's name is short enough, by entering it after the name. This is helpful if the character is under an effect lasts too long be worth creating an Effect, but that you don't want to record on the character's sheet.
+
+(If current is continuing effect) "Rounds Left:" - How many rounds are left for this effect. Number of additional times this screen will appear for this effect. A message will appear here when the effect is ending.
+
+"Take Action"/"Take Standard or Move Action"/"Continue" - One of these will appear, depending on type and status of current item. Pressing any will display this screen for the next item to act. Pressing the Page Down key does the same thing.
+
+"Create Effect" - Display screen for creating a continuing effect. Its place in the initiative will be before the current initiative count.
+
+"Delay Turn" - Displays a form for taking a Delay action.
+
+"Ready an Action" - Place the character into the Ready state and go on to the next item. You must select "Interrupt by Readied" for a later character for this character to take his or her readied action.
+
+"Remove Other" - Displays a list of other items in the combat. Selecting one removes it from the combat. You can use this when the current item kills something else.
+
+"Interrupt by Readied" - Displays a list of readied characters, if any. Selecting one moves it to before the current character in the initiative order, and displays this screen for the character selected.
+
+"Trigger Delayed Action" - Displays a list of delaying characters, if any. Selecting one moves it to immediately after the current character in the initiative order.
+
+MENU:
+
+"Char" > "Act" - Same as "Take Action" button, above.
+
+"Char" > "Create Effect" - Same as "Create Effect" button, above. Characters only.
+
+"Char" > "Delay" - Same as "Delay Turn" button, above. Characters only.
+
+"Char" > "Ready" - Same as "Ready an Action" button, above. Characters only.
+
+"Char" > "Refocus" - NOTE: this action is not listed in the Revised (v3.5) System Reference Document. Take a Refocus action for this character. Changes the character's initiative to 20 plus his or her initiative modifier. Characters only.
+
+"Effect" > "Continue" - Same as "Continue" button, above. Effects only.
+
+"Any" > "Remove" - Remove the current item from the combat. Does not delete the item from the database.
+
+"Any" > "Remove Other" - Same as "Remove Other" button, above.
+
+"Any" > "Interrupt by Readied" - Same as "Interrupt by Readied" button, above.
+
+"Any" > "Trigger Delayed" - Same as "Trigger Delayed Action" button, above.
+
+"Any" > "Overview" - Return to Initiative Overview screen. There, you can edit items and initiative values before returning to this screen.
+
+"Any" > "End Combat" - End the current combat and return to Initiative Overview screen.
+
+"Help" > "How to Use" - Display this help screen.
+
+"Help" > "About Combat-Q" - Information about this application.
+------------------------------------------------------------------------------
+4. Combat-Q Edit Character
+
+SUMMARY:
+
+Allows editing of a new or existing character. This is anything in the game that can take actions, like a player character, monster, or non-player character. Often, to simplify combat, several NPCs that act as a group should be treated as a single character in Combat-Q for purposes of initiative.
+
+INPUTS:
+
+"Name:" - The name of the character.
+
+"Initiative Modifier:" - The number added to a character's initiative roll. May be positive or negative. Normally equal to dexterity modifier, with a +4 bonus for the Improved Initiative feat.
+
+"'Spell' Number:" - This number is added to the end of the name of any effects the character creates. The number increases by one every time the character creates an effect. However, you may ignore this default name and name effects whatever you want.
+
+"'Spell' Duration:" - The default duration of any effects the character creates. For spell-casting characters, you may want to set this to their caster level. You may set effects durations to whatever you want when they are created.
+
+"Player Character" - Checking this box causes character to be above non-PC characters on the overview screen, when not in combat. Also, after a combat ends, character is automatically activated for the next combat. 
+
+STATUS DISPLAYS:
+You may not change these flags from this screen.
+
+"Delaying" - Checked if the character is currently delaying.
+
+"Readied" - Checked if the character is currently readied.
+
+"Taking Readied Action" - Checked if the character is currently taking a readied action.
+
+"Aware" - Checked if the character is aware of opponents. Always checked on round 1 and later.
+
+BUTTONS:
+
+"OK" - Accept the values entered and create or update the character. Return to previous screen.
+
+"Delete" - Remove the character from the database. Return to previous screen.
+
+"Cancel" - Make no changes and return to previous screen.
+
+OTHER:
+
+There is a Graffiti indicator in the lower right corner that shows current Graffiti shift status.
+------------------------------------------------------------------------------
+5. Combat-Q Edit Effect
+
+SUMMARY:
+
+Allows editing of a new or existing "continuing effect". This can be anything in the game that lasts for a limited time in combat, but does not take actions like a character. Examples include spells, barbarian rage, and stunning from a monk's stunning attack.
+
+DISPLAYS:
+
+"Owner:" - The character that created the effect, or "None", if the character has been deleted from the database.
+
+INPUTS:
+
+"Name:" - The name of the effect.
+
+"Duration (Rounds):" - How long the effect normally lasts, in combat rounds.
+
+"Rounds Remaining:" - How many more rounds the effect will last. This drops by one every time the effect's initiative value comes up while it is in combat. If the effect is added to a combat before the combat begins, this is set equal to Duration.
+
+BUTTONS:
+
+"Summon Creature" - Pops up a screen for editing a new character. This character will go after the effect's owner if the effect is new, otherwise the character will follow the effect. When the effect expires or is removed from combat, this character will leave combat too.
+
+"OK" - Accept the values entered and create or update the effect. Return to previous screen.
+
+"Delete" - Remove the effect from the database. Return to previous screen.
+
+"Cancel" - Make no changes and return to previous screen.
+
+OTHER:
+
+There is a Graffiti indicator in the lower right corner that shows current Graffiti shift status.
+------------------------------------------------------------------------------
+6. Combat-Q Delaying
+
+By choosing to delay, a character takes no action and then acts normally on whatever initiative count he or she decides to act. When a character delays, he or she voluntarily reduces his or her own initiative result for the rest of the combat. When the new, lower initiative count comes up later in the same round, the character can act normally. The character can specify this new initiative result (by entering a number and clicking "OK") or just wait until some time later in the round (by clicking "None"). On the turn of another character whom the delaying character wishes to follow, select "Trigger Delayed Action" and select the delaying character. This will fix the new initiative count of the delaying character at that point. 
+
+To not delay, select "Cancel".
+------------------------------------------------------------------------------
+7. Combat-Q Ties
+
+One or both of the characters listed are entering combat, but they have the same initiative check results and initiative modifiers. Make initiative checks for both characters and click the button for the winner, rerolling ties.

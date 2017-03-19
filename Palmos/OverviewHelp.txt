@@ -1,0 +1,59 @@
+Combat-Q Initiative Overview
+
+SUMMARY: 
+
+Use Combat-Q to keep track of a d20 System combat. To start, click "New" to create characters, check their boxes on the overview screen, and click "Start". 
+
+The current screen gives a summary of all characters or continuing effects in the database.
+
+DISPLAY:
+
+"Round:" This gives the current round number, or "-" if no combat is in progress.
+
+"Initiative:" This gives the initiative value of the current item, or "-" if no combat is in progress.
+
+TABLE:
+
+Column 1 - Status - An arrow indicates current item, a "D" means delayed character, and "R" means readied character.
+
+Column 2 - Active Checkbox - A check means the item is in the current combat. Check to add item, uncheck to take it out.
+
+Column 3 - Initiative - Displays current initiative check result of an item. To change where an item is in the list once combat has started, edit the number then select a different field.
+
+Column 4 - Name - The name of the item. Does not need to be unique. You may edit the names of items by making changes in this column.
+
+BUTTONS:
+
+"New" - Opens a form for creating a new character.
+
+"Details" - Opens a form for editing details about the selected item.
+
+(If no combat) "Start" - Start a combat with the active items. Displays the Roll Initiative form.
+
+(If combat in progress) "Resume" - Display the Current Combatant screen.
+
+Arrow buttons - If there are more items than fit on the screens, display the next or previous set. The page up and page down keys do the same thing.
+
+MENUS:
+
+"Item" > "New Character" - Same as "New" button, above.
+
+"Item" > "Delete Item" - Delete the currently selected item from the database. WARNING, this command does NOT verify before continuing, and PERMANENTLY deletes the selected item.
+
+"Item" > "Sort Items" - Sorts the items displayed. Use this after editing names or initiatives. TIP - to separate PC's from NPC's, put a non-letter character, like "-", at the start of the names of items you want to appear before others.
+
+"Item" > "Copy Item" - Makes 1-20 copies of the currently selected item. Copies are exactly the same, except for " 01" through " 20" appended to the name. If the original was a character, the copies are not in combat. If the original was a continuing effect and in combat, the copies are also in combat.
+
+"Combat" > "Start/Resume" - Same as "Start" or "Resume" buttons, above, depending on whether combat is in progress.
+
+"Combat" > "End Encounter" - End any current combat.
+
+"Help" > "How to Use" - Displays this screen.
+
+"Help" > "About Combat-Q" - Information about this application.
+
+"Help" > "Open Gaming License" - Displays the open gaming license for this product.
+
+OTHER
+
+There is a Graffiti shift indicator that will appear in the lower right corner of the screen when you are editing initiatives or names and use a Graffiti shift stroke.

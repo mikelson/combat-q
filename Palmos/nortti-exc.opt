@@ -1,0 +1,23 @@
+<optionlist><optionlist><option displayname="Debug Info"
+  category="Debug"
+  valuelist=""
+  syntax="-g"
+  parameters="0"
+  default="1"
+  guid="{609B58CD-F0BD-49BF-9D2C-F592F487F2BB}"></option>
+<option displayname="no Run Time Type Interpretting"
+  category="Debug"
+  valuelist=""
+  syntax="-fno-rtti"
+  parameters="0"
+  default="1"
+  guid="{BC27A303-9BC4-43FC-85C1-A0F9255AA1D1}"></option>
+<option displayname="no Exceptions"
+  category="Debug"
+  valuelist=""
+  syntax="-fno-exceptions"
+  parameters="0"
+  default="1"
+  guid="{E79F4480-F6A4-4D88-B518-618CF594BEA6}"></option>
+</optionlist>
+</optionlist>

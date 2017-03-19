@@ -1,0 +1,9 @@
+Requires the use of the Dungeons & Dragons(R) Player's Handbook, Third Edition, published by Wizards of the Coast, Inc.
+
+The contents of the help windows and the files "CombatQOGC.cpp", "CombatQOGC.h", and "CombatQHelp.txt" (distributed with this application) are Open Game Content under the Open Game License (see "Help" menu), and may only be used under and in terms of that License. All other parts of the Combat-Q application are considered Product Identity under the Open Game License, and are copyright (c) 2004, Peter Mikelsons; all rights reserved.
+
+'d20 System' and the 'd20 System' logo are trademarks of Wizards of the Coast, Inc., a subsidiary of Hasbro, Inc., and are used according to the terms of the d20 System License version 6.0.  A copy of this License can be found at www.wizards.com/d20.
+
+Dungeons & Dragons(R) and Wizards of the Coast(R) are registered trademarks of Wizards of the Coast, Inc., a subsidiary of Hasbro, Inc., and are used with permission.
+
+Acknowledgements: Playtesters - Rick Heineman, Chris Kern, Karmin Mauritz. Proofreading - Carol Mikelsons. Invaluable support - Alisha Holloway.

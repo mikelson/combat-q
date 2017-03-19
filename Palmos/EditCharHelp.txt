@@ -1,0 +1,40 @@
+Combat-Q Edit Character
+
+SUMMARY:
+
+Allows editing of a new or existing character. This is anything in the game that can take actions, like a player character, monster, or non-player character. Often, to simplify combat, several NPCs that act as a group should be treated as a single character in Combat-Q for purposes of initiative.
+
+INPUTS:
+
+"Name:" - The name of the character.
+
+"Initiative Modifier:" - The number added to a character's initiative roll. May be positive or negative. Normally equal to dexterity modifier, with a +4 bonus for the Improved Initiative feat.
+
+"'Spell' Number:" - This number is added to the end of the name of any effects the character creates. The number increases by one every time the character creates an effect. However, you may ignore this default name and name effects whatever you want.
+
+"'Spell' Duration:" - The default duration of any effects the character creates. For spell-casting characters, you may want to set this to their caster level. You may set effects durations to whatever you want when they are created.
+
+"Player Character" - Checking this box causes character to be above non-PC characters on the overview screen, when not in combat. Also, after a combat ends, character is automatically activated for the next combat. 
+
+STATUS DISPLAYS:
+You may not change these flags from this screen.
+
+"Delaying" - Checked if the character is currently delaying.
+
+"Readied" - Checked if the character is currently readied.
+
+"Taking Readied Action" - Checked if the character is currently taking a readied action.
+
+"Aware" - Checked if the character is aware of opponents. Always checked on round 1 and later.
+
+BUTTONS:
+
+"OK" - Accept the values entered and create or update the character. Return to previous screen.
+
+"Delete" - Remove the character from the database. Return to previous screen.
+
+"Cancel" - Make no changes and return to previous screen.
+
+OTHER:
+
+There is a Graffiti indicator in the lower right corner that shows current Graffiti shift status.

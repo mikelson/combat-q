@@ -1,0 +1,58 @@
+#include "MainRsc.h"
+
+FORM ID SelectFormID  AT ( 2 19 156 139 )
+MODAL
+BEGIN
+     TITLE "Make a Selection"
+     FIELD ID SelectTextFieldID  AT (8 16 139 37) MAXCHARS 255 NONEDITABLE MULTIPLELINES
+     LIST "One" "Two" "Three" ID SelectListID  AT (PREVLEFT PREVBOTTOM 125 68) VISIBLEITEMS 6
+     BUTTON "OK" ID DoneID  AT (PREVLEFT PREVBOTTOM+3 AUTO AUTO) FONT 0
+     BUTTON "Cancel" ID CancelID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) FONT 0
+END
+
+STRING ID SelectTriggerStringID "Select one (delaying) character to go immediately after the current character/effect."
+
+STRING ID SelectKillStringID "Select one character or effect to remove from this encounter."
+
+STRING ID SelectInterruptStringID "Select one readied character to act before the current character/effect."
+
+ALERT ID NoDelayingCharactersAlertID
+INFORMATION
+BEGIN
+     TITLE "No Delaying Characters"
+     MESSAGE "Can not perform that task. There are no characters currently delaying."
+     BUTTONS "OK"
+END
+
+
+ALERT ID NoSelectionsAlertID
+INFORMATION
+BEGIN
+     TITLE "No Available Selections"
+     MESSAGE "There are no selections to choose from. Please try again."
+     BUTTONS "OK"
+END
+
+ALERT ID NoOtherPerformersAlertID
+INFORMATION
+BEGIN
+     TITLE "Nothing to Remove"
+     MESSAGE "There are no other characters or effects to remove. Please select another option."
+     BUTTONS "OK"
+END
+
+ALERT ID NoReadiedCharactersAlertID
+INFORMATION
+BEGIN
+     TITLE "No Readied Characters"
+     MESSAGE "There are no readied characters to choose from. Please try another action."
+     BUTTONS "OK"
+END
+
+ALERT ID ReadiedTriggeringAlertID
+CONFIRMATION
+BEGIN
+     TITLE "Suspicious Action"
+     MESSAGE "You should not trigger a delayed action with a readied action, because then the delayed action comes before whatever the readied action interrupted."
+     BUTTONS "Do it anyway" "Cancel"
+END

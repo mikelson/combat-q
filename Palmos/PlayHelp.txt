@@ -1,0 +1,59 @@
+Combat-Q Current Combatant
+
+SUMMARY:
+
+Displays the character who is currently acting in the combat, or displays rounds remaining for a continuing effect. Press Page Down key or Take Action button to go on to the next item to act in the combat.
+
+DISPLAYS:
+
+"Round:" - The current round number, or "Surprise" for surprise round.
+
+"Initiative:" - The initiative count of the current item.
+
+"Name:" - Current item's name. You may edit the name here. Hint: you can record information about a character here, if the character's name is short enough, by entering it after the name. This is helpful if the character is under an effect lasts too long be worth creating an Effect, but that you don't want to record on the character's sheet.
+
+(If current is continuing effect) "Rounds Left:" - How many rounds are left for this effect. Number of additional times this screen will appear for this effect. A message will appear here when the effect is ending.
+
+"Take Action"/"Take Standard or Move Action"/"Continue" - One of these will appear, depending on type and status of current item. Pressing any will display this screen for the next item to act. Pressing the Page Down key does the same thing.
+
+"Create Effect" - Display screen for creating a continuing effect. Its place in the initiative will be before the current initiative count.
+
+"Delay Turn" - Displays a form for taking a Delay action.
+
+"Ready an Action" - Place the character into the Ready state and go on to the next item. You must select "Interrupt by Readied" for a later character for this character to take his or her readied action.
+
+"Remove Other" - Displays a list of other items in the combat. Selecting one removes it from the combat. You can use this when the current item kills something else.
+
+"Interrupt by Readied" - Displays a list of readied characters, if any. Selecting one moves it to before the current character in the initiative order, and displays this screen for the character selected.
+
+"Trigger Delayed Action" - Displays a list of delaying characters, if any. Selecting one moves it to immediately after the current character in the initiative order.
+
+MENU:
+
+"Char" > "Act" - Same as "Take Action" button, above.
+
+"Char" > "Create Effect" - Same as "Create Effect" button, above. Characters only.
+
+"Char" > "Delay" - Same as "Delay Turn" button, above. Characters only.
+
+"Char" > "Ready" - Same as "Ready an Action" button, above. Characters only.
+
+"Char" > "Refocus" - NOTE: this action is not listed in the Revised (v3.5) System Reference Document. Take a Refocus action for this character. Changes the character's initiative to 20 plus his or her initiative modifier. Characters only.
+
+"Effect" > "Continue" - Same as "Continue" button, above. Effects only.
+
+"Any" > "Remove" - Remove the current item from the combat. Does not delete the item from the database.
+
+"Any" > "Remove Other" - Same as "Remove Other" button, above.
+
+"Any" > "Interrupt by Readied" - Same as "Interrupt by Readied" button, above.
+
+"Any" > "Trigger Delayed" - Same as "Trigger Delayed Action" button, above.
+
+"Any" > "Overview" - Return to Initiative Overview screen. There, you can edit items and initiative values before returning to this screen.
+
+"Any" > "End Combat" - End the current combat and return to Initiative Overview screen.
+
+"Help" > "How to Use" - Display this help screen.
+
+"Help" > "About Combat-Q" - Information about this application.

@@ -1,0 +1,83 @@
+#include "mainRsc.h"
+
+APPLICATIONICONNAME ID 100 "Combat-Q"
+APPLICATION         ID 1   "PMcq"
+VERSION ID VersionID                "1.3"
+
+ICONFAMILY "computer_22x22x1.bmp" "computer_22x22x2.bmp" "computer_22x22x4.bmp" "computer_22x22x8.bmp" TRANSPARENTINDEX 0
+SMALLICONFAMILY "computer_15x9x1.bmp" "computer_15x9x2.bmp" "computer_15x9x4.bmp" "computer_15x9x8.bmp" TRANSPARENTINDEX 0
+
+/****************************************************************************
+ * Alert window shown for wrong OS.
+ ****************************************************************************/
+
+/* Note: Palm OS v1.0 calls PilotMain again after PilotMain returns non-zero.
+ * Therefore you can't return to launcher if initialization fails. Later OS's
+ * handle non-zero PilotMain, so this screen would need a button.
+ */
+ALERT ID AlertOldOSID ERROR
+BEGIN
+    TITLE "Wrong OS"
+    MESSAGE "This version of Palm OS is too old. "\
+    "You must have version 2.0 or later to run this program. "\
+    "Press \"Applications\" button to exit and run another program."
+END
+
+ALERT ID TrialAlertID WARNING
+BEGIN
+     TITLE "Combat-Q Trial"
+     MESSAGE "This is a trial version of Combat-Q. Any data present will be lost when you stop or restart the trial. To keep and backup data, please purchase full version from www.palmgear.com."
+
+
+
+     BUTTONS "OK"
+END
+/****************************************************************************
+ * Generic Form for displaying text that needs scroll bars.
+ ****************************************************************************/
+
+// Note: "\251" is chrCopyrightSign in CharLatin.h, which is not supported by all Palm OS devices
+// Note: See Core\System\Chars.h for enumeration of symbol font characters (ie, "\001", "\002")
+// Note: See Core\System\Font.h for enumeration of the fonts
+FORM ID TextFormID AT (2 2 156 156) MODAL
+BEGIN
+    /* Title has enough space for 31 characters of space char width */
+    TITLE "                               "
+    FIELD ID TextFormFieldID AT (1 15 155 124) NONEDITABLE MULTIPLELINES
+    BUTTON "OK" ID DoneID AT (3 BOTTOM@154 AUTO AUTO) FRAME
+    REPEATBUTTON "\001" ID ScrollUpID AT (143 140 13 8) NOFRAME FONT 5
+    REPEATBUTTON "\002" ID ScrollDownID AT (PREVLEFT PREVBOTTOM 13 8) NOFRAME FONT 5
+END
+
+/****************************************************************************
+ * Logo Form - shows d20 Logo and author info.
+ ****************************************************************************/
+BITMAPFAMILY ID 1 "d20logo_text_2.bmp" "" "" "d20logo_rgb_16m.bmp" COMPRESS
+FORM ID LogoFormID AT (2 2 156 156) MODAL
+BEGIN
+    LABEL "Combat-Q" AUTOID AT (CENTER@centerX 4) FONT 1
+    LABEL "Version " AUTOID AT (50 PREVBOTTOM) FONT 1
+    FIELD ID LogoFormVersionID AT (PREVRIGHT PREVTOP 73 13) FONT 1 MAXCHARS MAX_NAME_BYTES NONEDITABLE
+    LABEL "d20 Initiative Tracker" AUTOID AT (CENTER@centerX PREVBOTTOM) FONT 1
+    LABEL "by Peter Mikelsons" AUTOID AT (CENTER@centerX PREVBOTTOM) FONT 1
+    LABEL "(Email plm@snow.org)" AUTOID AT (CENTER@centerX PREVBOTTOM) FONT 1
+    FORMBITMAP AT (centerX-24 97) BITMAP 1
+    BUTTON "Continue" ID DoneID AT (CENTER@centerX BOTTOM@154 AUTO AUTO) FRAME FONT 0
+END
+
+
+STRING ID InitTieHelpString FILE "InitTieHelp.txt"
+
+ALERT ID TieAlertID
+CONFIRMATION HELPID InitTieHelpString
+BEGIN
+     TITLE "Initiative Tie"
+     MESSAGE "(A) ^1 and (B) ^2 are tied in initiative. Make initiative checks for both and enter winner below."
+     BUTTONS "A" "B"
+END
+
+STRING ID StringOGLTitleID "Open Game License"
+STRING ID StringOGLID  FILE "OGLv1.0a.txt"
+
+STRING ID StringAboutTitleID "About Combat-Q"
+STRING ID StringAboutID  FILE "about.txt"
