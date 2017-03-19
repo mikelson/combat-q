@@ -6,7 +6,7 @@
  *
  * DESCRIPTION:  Event loop code.
  *
- * ©2004 Peter L. Mikelsons.  All rights reserved.
+ * Copyright 2017 Peter L. Mikelsons.  All rights reserved.
  *
  ***********************************************************************/
 #include "Main.h" // all modules must include this first

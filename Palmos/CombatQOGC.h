@@ -160,7 +160,7 @@ Open Game License v 1.0a Copyright 2000, Wizards of the Coast, Inc.
 
 System Reference Document Copyright 2000-2003, Wizards of the Coast, Inc.; Authors Jonathan Tweet, Monte Cook, Skip Williams, Rich baker, Andy Collins, David noonan, Rich Redman, Bruce R. Cordell, based on original material by E. Gary Gygax and Dave Arneson. 
 
-Combat-Q v1.3 Copyright 2004, Peter Mikelsons.
+Combat-Q v1.3 Copyright 2017, Peter Mikelsons.
 
 END OF OPEN GAME LICENSE
 

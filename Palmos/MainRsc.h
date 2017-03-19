@@ -1,6 +1,7 @@
 /*************************************************
  *
  * Definitions used only in the .rcp file
+ * Copyright 2017 Peter L Mikelsons
  *
  *************************************************/
 

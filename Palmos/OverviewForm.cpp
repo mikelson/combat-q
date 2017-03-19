@@ -2,6 +2,8 @@
  * Source code for the Overview Form, aka "the Dungeon Master Screen".
  * This form displays all of the performers in an encounter and allows
  * arbitrary editing of them, as well as switching to new encounters.
+ *
+ * Copyright 2017 Peter L Mikelsons
  */
 
 #include "Main.h"

@@ -5,6 +5,8 @@
  *
  * v1.1 - Remove all active performers from init list when opening form,
  * at same time as setting character's initiative rolls to 10.
+ *
+ * Copyright 2017 Peter L Mikelsons
  */
 
 #include "Main.h"

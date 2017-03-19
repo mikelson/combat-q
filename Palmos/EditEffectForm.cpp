@@ -1,5 +1,6 @@
 /*
  * Source code for the Edit Effect Form.
+ * Copyright 2017 Peter L Mikelsons
  */
 
 #include "Main.h"

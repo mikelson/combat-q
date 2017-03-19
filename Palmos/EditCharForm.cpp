@@ -1,5 +1,6 @@
 /*
  * Source code for the Edit Character Form.
+ * Copyright 2017 Peter L Mikelsons
  */
 
 #include "Main.h"

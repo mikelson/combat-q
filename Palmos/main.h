@@ -1,5 +1,6 @@
 /*
  * Header file used by all modules in application.
+ * Copyright 2017 Peter L Mikelsons
  */
 
 #ifndef __MAIN_H__

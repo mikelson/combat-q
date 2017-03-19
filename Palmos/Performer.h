@@ -1,6 +1,7 @@
 /*
  * Header file used by all modules in application that use non-OGC functions with OGC
  * parameters.
+ * Copyright 2017 Peter L Mikelsons
  */
 
 #ifndef __PERFORMER_H__

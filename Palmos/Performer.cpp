@@ -1,3 +1,5 @@
+// Copyright 2017 Peter L Mikelsons
+
 #include "Main.h"
 #include "CombatQOGC.h"
 #include "Performer.h"
