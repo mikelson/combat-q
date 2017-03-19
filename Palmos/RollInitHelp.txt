@@ -1,0 +1,21 @@
+Combat-Q Roll Initiative
+
+SUMMARY
+
+Enter the d20 initiative rolls and surprise status of all characters starting a combat. Note: Combat-Q will add the character's initiative modifier to the roll number you enter to get the character's total initiative check result. Remember to enter the roll, not the total.
+
+TABLE
+
+"Name" Column - Name of the character. Click here or on "Result" to enter its initiative roll.
+
+"Init" Column - Initiative check result of character. Click here or on "Name" to enter its initiative roll.
+
+"Awr" (Aware) Column - Indicates whether the character is aware of opponents. Uncheck the box if the character is unaware or surprised. If some characters are aware and others are not, Combat-Q will start combat with a surprise round when only the aware characters may act.
+
+BUTTONS
+
+"Start" - Start the combat. Displays the Current Combatant screen of the first item to act.
+
+"Cancel" - Return to Initiative Overview screen. All initiative rolls and aware states are saved.
+
+Arrow buttons - If there are more items than fit on the screens, display the next or previous set. The page up and page down keys do the same thing.

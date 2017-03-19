@@ -1,0 +1,48 @@
+#include "MainRsc.h"
+
+
+FORM ID EditEffectFormID  AT ( 2 25 156 133 )
+MODAL HELPID EditEffectHelpString
+BEGIN
+        TITLE "Edit Effect"
+
+    LABEL "Enter information for" AUTOID AT (5 16) FONT 1
+    LABEL "continuing effect:" AUTOID AT (PREVLEFT PREVBOTTOM) FONT 1
+    LABEL "Owner: " AUTOID AT (11 PREVBOTTOM) FONT 1
+    FIELD ID OwnerFieldID  AT (50 PREVTOP 99 13) MAXCHARS MAX_NAME_BYTES NONEDITABLE
+    LABEL "Name: " AUTOID AT (11 PREVBOTTOM+3) FONT 1
+    FIELD ID NameFieldID  AT (50 PREVTOP 99 13) MAXCHARS MAX_NAME_BYTES EDITABLE UNDERLINED
+    LABEL "Duration (Rounds): " AUTOID AT (11 PREVBOTTOM+3) FONT 1
+    FIELD ID DurationFieldID  AT (110 PREVTOP 39 13) MAXCHARS MAX_NUMERIC_BYTES EDITABLE NUMERIC UNDERLINED
+    LABEL "Rounds Remaining: " AUTOID AT (11 PREVBOTTOM+3) FONT 1
+    FIELD ID RemainingFieldID  AT (110 PREVTOP 39 13) MAXCHARS MAX_NUMERIC_BYTES EDITABLE NUMERIC UNDERLINED
+    BUTTON "Summon Creature" ID EffectSummonBID AT (11 PREVBOTTOM+3 AUTO AUTO) FONT 0
+    BUTTON "OK" ID DoneID  AT (11 PREVBOTTOM+3 AUTO AUTO) FONT 0
+        BUTTON "Delete" ID DeleteID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO)
+BUTTON "Cancel" ID CancelID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) FONT 0
+
+GRAFFITISTATEINDICATOR AT (147 BOTTOM@PREVBOTTOM)
+
+END
+
+STRING ID DefaultEffectNameStringID "\'s spell "
+
+STRING ID NoOwnerStringID "None"
+
+STRING ID EditEffectHelpString FILE "EditEffectHelp.txt"
+
+ALERT ID NominalDurationAlertID
+INFORMATION
+BEGIN
+     TITLE "Invalid Duration"
+     MESSAGE "You must enter a duration between 0 and 255."
+     BUTTONS "OK"
+END
+
+ALERT ID RemainingDurationAlertID
+INFORMATION
+BEGIN
+     TITLE "Invalid Rounds Remaining"
+     MESSAGE "You must enter rounds remaining between 0 and 255."
+     BUTTONS "OK"
+END

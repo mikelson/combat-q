@@ -1,0 +1,5 @@
+Combat-Q Delaying
+
+By choosing to delay, a character takes no action and then acts normally on whatever initiative count he or she decides to act. When a character delays, he or she voluntarily reduces his or her own initiative result for the rest of the combat. When the new, lower initiative count comes up later in the same round, the character can act normally. The character can specify this new initiative result (by entering a number and clicking "OK") or just wait until some time later in the round (by clicking "None"). On the turn of another character whom the delaying character wishes to follow, select "Trigger Delayed Action" and select the delaying character. This will fix the new initiative count of the delaying character at that point. 
+
+To not delay, select "Cancel".

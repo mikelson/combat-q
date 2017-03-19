@@ -1,0 +1,30 @@
+#include "MainRsc.h"
+/****************************************************************************
+ * Roll Initiative Form.
+ ****************************************************************************/
+FORM ID RollInitFormID AT (2 2 156 156) USABLE MODAL HELPID 3999 FRAME
+BEGIN
+    TITLE "Enter Initiative Rolls"
+    LABEL "Name" AUTOID AT (77 15) FONT 1
+    LABEL "Init" AUTOID AT (109 PREVTOP) FONT 1
+    LABEL "Awr" AUTOID AT (134 PREVTOP) FONT 1
+    TABLE ID TableID AT (1 PREVBOTTOM 154 112)
+        ROWS ROLL_ROWS COLUMNS 3 COLUMNWIDTHS 103 22 29
+    BUTTON "Start" ID DoneID AT (3 BOTTOM@154 AUTO AUTO) FRAME FONT 0
+    BUTTON "Cancel" ID CancelID AT (PREVRIGHT+3 PREVTOP AUTO AUTO)
+        FRAME FONT 0 USABLE
+    REPEATBUTTON "\001" ID ScrollUpID AT (143 140 13 8) NOFRAME
+        FONT 5
+    REPEATBUTTON "\002" ID ScrollDownID AT (PREVLEFT PREVBOTTOM 13 8) NOFRAME
+        FONT 5
+END
+
+ALERT ID NoCombatantsErrorID
+WARNING
+BEGIN
+     TITLE "No Combatants"
+     MESSAGE "You may not start combat until you choose some combatants. Check box by combatants to add."
+     BUTTONS "OK"
+END
+
+STRING ID 3999 FILE "RollInitHelp.txt"

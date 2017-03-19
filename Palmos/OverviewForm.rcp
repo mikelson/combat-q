@@ -1,0 +1,65 @@
+#include "mainRsc.h"
+/****************************************************************************
+ * Main Form's Menus.
+ ****************************************************************************/
+MENU ID OverviewMenuBarID
+BEGIN
+    PULLDOWN "Item"
+    BEGIN
+        MENUITEM "New Character" ID NewCharID "N"
+        MENUITEM "Delete Item" ID DeleteID  "D"
+        MENUITEM SEPARATOR
+        MENUITEM "Sort Items" ID SortTableID  "R"
+        MENUITEM "Copy Item" ID CopyItemID "C"
+    END
+    PULLDOWN "Combat"
+    BEGIN
+        MENUITEM "Start/Resume" ID StartCombatID "S"
+        MENUITEM "End Encounter" ID EndCombatID "."
+    END
+    PULLDOWN "Help"
+    BEGIN
+        MENUITEM "How to Use" ID HowToID "H"
+        MENUITEM SEPARATOR
+        MENUITEM "About Combat-Q" ID AboutID "A"
+        MENUITEM "Open Gaming License" ID OGLID "G"
+    END
+END
+
+/****************************************************************************
+ * Overview Form.
+ ****************************************************************************/
+FORM ID OverviewFormID AT (0 0 160 160) USABLE
+MENUID OverviewMenuBarID
+BEGIN
+    TITLE "Initiative Overview"
+    LABEL "Round: " AUTOID AT (1 15) FONT 1
+    FIELD RoundFieldID AT (PREVRIGHT PREVTOP 30 13) MAXCHARS 255 NONEDITABLE FONT 1
+    LABEL "Initiative: " AUTOID AT (80 PREVTOP) FONT 1
+    FIELD InitiativeFieldID AT (PREVRIGHT PREVTOP 24 13) MAXCHARS 255 NONEDITABLE FONT 1
+    TABLE ID TableID AT (0 PREVBOTTOM 160 112)
+        ROWS NUM_ROWS COLUMNS 4 COLUMNWIDTHS 10 12 16 122
+    BUTTON "New" ID NewCharBID  AT (3 BOTTOM@158 AUTO AUTO) FRAME FONT 0
+    BUTTON "Details" ID DetailBID AT (PREVRIGHT+3 PREVTOP AUTO AUTO) FRAME FONT 0
+    BUTTON "Start" ID StartCombatBID AT (PREVRIGHT+3 PREVTOP AUTO AUTO)
+        FRAME FONT 0 USABLE
+    BUTTON "Resume" ID DoneID AT (PREVLEFT PREVTOP AUTO AUTO)
+        FRAME FONT 0 NONUSABLE
+    GRAFFITISTATEINDICATOR AT (RIGHT@138 BOTTOM@PREVBOTTOM)
+    REPEATBUTTON "\001" ID ScrollUpID AT (147 144 13 8) NOFRAME FONT 5
+    REPEATBUTTON "\002" ID ScrollDownID AT (147 152 13 8) NOFRAME FONT 5
+END
+
+STRING ID 3997 "To select an item, touch the screen anywhere on "\
+"the item's row, except on the item's check box."
+
+ALERT ID NoneSelectedID
+INFORMATION HELPID 3997
+BEGIN
+     TITLE "Nothing Selected"
+     MESSAGE "Please select an item before doing that."
+     BUTTONS "OK"
+END
+
+
+STRING ID OverviewHelpString  FILE "OverviewHelp.txt"

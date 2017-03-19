@@ -1,0 +1,566 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.3	//
+ACTIVE_COLUMN	OverviewForm.cpp	15;"	d	line:15
+AWARE_COLUMN	RollInitForm.cpp	19;"	d	line:19
+AboutID	MainRsc.h	91;"	d	line:91
+AlertOldOSID	MainRsc.h	60;"	d	line:60
+ApplicationHandleEvent	Main.cpp	455;"	f	line:455
+AwareCBID	MainRsc.h	216;"	d	line:216
+BIT_AWARE	Performer.cpp	51;"	d	line:51
+BIT_DELAYING	Performer.cpp	39;"	d	line:39
+BIT_PC	Performer.cpp	55;"	d	line:55
+BIT_READIED	Performer.cpp	43;"	d	line:43
+BIT_TAKINGREADIED	Performer.cpp	47;"	d	line:47
+Byte	Performer.cpp	6;"	t	line:6
+CHARACTER	CombatQOGC.h	175;"	e	line:175	enum:PerformerTypeEnum
+CREATOR_ID	MainRsc.h	34;"	d	line:34
+CURRENT_COLUMN	OverviewForm.cpp	13;"	d	line:13
+CancelID	MainRsc.h	45;"	d	line:45
+CharActMID	MainRsc.h	147;"	d	line:147
+CharCreateEffectBID	MainRsc.h	138;"	d	line:138
+CharCreateEffectMID	MainRsc.h	148;"	d	line:148
+CharDelayBID	MainRsc.h	139;"	d	line:139
+CharDelayMID	MainRsc.h	149;"	d	line:149
+CharNormalBID	MainRsc.h	136;"	d	line:136
+CharReadyBID	MainRsc.h	140;"	d	line:140
+CharReadyMID	MainRsc.h	150;"	d	line:150
+CharRefocusMID	MainRsc.h	151;"	d	line:151
+CharStandardBID	MainRsc.h	137;"	d	line:137
+Character	CombatQOGC.h	288;"	c	line:288	inherits:Performer
+Character	CombatQOGC.h	291;"	p	line:291	class:Character
+Character	Performer.cpp	1005;"	f	line:1005	class:Character
+Character	Performer.cpp	443;"	f	line:443	class:Character
+CloseSelectForm	SelectForm.cpp	82;"	f	line:82
+ComparePerformers	Performer.cpp	211;"	f	line:211
+ComparePerformers	main.h	74;"	p	line:74
+ComparePerformersNames	Performer.cpp	164;"	f	line:164
+CopyItemID	MainRsc.h	85;"	d	line:85
+CountFieldID	MainRsc.h	219;"	d	line:219
+CreateDatabase	Main.cpp	194;"	f	line:194
+D20ResultStringID	MainRsc.h	233;"	d	line:233
+DB_CARD	Main.cpp	17;"	d	line:17
+DB_ID	Main.cpp	21;"	d	line:21
+DB_TYPE	Main.cpp	18;"	d	line:18
+DB_VERSION	Performer.h	10;"	d	line:10
+DEFAULT_COUNTER	EditCharForm.cpp	12;"	d	line:12
+DEFAULT_DB_NAME	Main.cpp	28;"	d	line:28
+DEFAULT_DURATION	EditCharForm.cpp	14;"	d	line:14
+DEFAULT_MODIFIER	EditCharForm.cpp	10;"	d	line:10
+DefaultCharNameStringID	MainRsc.h	225;"	d	line:225
+DefaultDurationAlertID	MainRsc.h	224;"	d	line:224
+DefaultEffectNameStringID	MainRsc.h	205;"	d	line:205
+DelayFormID	MainRsc.h	171;"	d	line:171
+DelayHelpString	MainRsc.h	181;"	d	line:181
+DelayInitFieldID	MainRsc.h	177;"	d	line:177
+DelayingCBID	MainRsc.h	214;"	d	line:214
+DeleteID	MainRsc.h	83;"	d	line:83
+DetailBID	MainRsc.h	77;"	d	line:77
+DieMID	MainRsc.h	153;"	d	line:153
+DoneID	MainRsc.h	43;"	d	line:43
+DrawCurrentCallback	OverviewForm.cpp	154;"	f	line:154
+DurationFieldID	MainRsc.h	203;"	d	line:203
+EFFECT	CombatQOGC.h	176;"	e	line:176	enum:PerformerTypeEnum
+ERROR_CHECK_LEVEL	main.h	9;"	d	line:9
+EditCharFormID	MainRsc.h	213;"	d	line:213
+EditCharHelpString	MainRsc.h	226;"	d	line:226
+EditEffectFormID	MainRsc.h	199;"	d	line:199
+EditEffectHelpString	MainRsc.h	209;"	d	line:209
+Effect	CombatQOGC.h	374;"	c	line:374	inherits:Performer
+Effect	CombatQOGC.h	377;"	p	line:377	class:Effect
+Effect	Performer.cpp	1167;"	f	line:1167	class:Effect
+Effect	Performer.cpp	446;"	f	line:446	class:Effect
+EffectContinueBID	MainRsc.h	141;"	d	line:141
+EffectContinueMID	MainRsc.h	152;"	d	line:152
+EffectDurationLabelID	MainRsc.h	163;"	d	line:163
+EffectEndingString	MainRsc.h	166;"	d	line:166
+EffectSummonBID	MainRsc.h	200;"	d	line:200
+EncounterEnd	CombatQOGC.cpp	256;"	f	line:256
+EncounterEndAlertID	MainRsc.h	133;"	d	line:133
+EncounterEndForce	CombatQOGC.cpp	227;"	f	line:227
+EncounterEndStringID	MainRsc.h	134;"	d	line:134
+EncounterInfoType	main.h	42;"	t	line:42
+EncounterStart	CombatQOGC.cpp	196;"	f	line:196
+EndCombatID	MainRsc.h	88;"	d	line:88
+EndMID	MainRsc.h	158;"	d	line:158
+EventHandlerDelayForm	DelayForm.cpp	17;"	f	line:17
+EventHandlerEditCharForm	EditCharForm.cpp	37;"	f	line:37
+EventHandlerEditEffectForm	EditEffectForm.cpp	74;"	f	line:74
+EventHandlerLogoForm	LogoForm.c	6;"	f	line:6
+EventHandlerLogoForm	main.h	53;"	p	line:53
+EventHandlerOverviewForm	OverviewForm.cpp	375;"	f	line:375
+EventHandlerOverviewForm	main.h	59;"	p	line:59
+EventHandlerPlayForm	PlayForm.cpp	89;"	f	line:89
+EventHandlerPlayForm	main.h	90;"	p	line:90
+EventHandlerRollInitForm	RollInitForm.cpp	122;"	f	line:122
+EventHandlerRollInitForm	main.h	82;"	p	line:82
+EventHandlerSelectForm	SelectForm.cpp	188;"	f	line:188
+EventHandlerSelectForm	main.h	99;"	p	line:99
+EventHandlerTextForm	TextForm.c	37;"	f	line:37
+EventHandlerTextForm	main.h	87;"	p	line:87
+EventLoop	Main.cpp	512;"	f	line:512
+FldPageScroll	TextForm.c	22;"	f	line:22
+FldSet	Main.cpp	123;"	f	line:123
+FldSet	main.h	63;"	p	line:63
+FldSetEditable	Main.cpp	183;"	f	line:183
+FldSetEditable	main.h	66;"	p	line:66
+FldSetI	Main.cpp	157;"	f	line:157
+FldSetI	main.h	64;"	p	line:64
+FldSetS	Main.cpp	168;"	f	line:168
+FldSetS	main.h	65;"	p	line:65
+FreeMemory	EditEffectForm.cpp	58;"	f	line:58
+FreeSelectHandles	SelectForm.cpp	22;"	f	line:22
+FrmGotoTextForm	TextForm.c	6;"	f	line:6
+FrmGotoTextForm	main.h	85;"	p	line:85
+FrmPopupEditCharForm	EditCharForm.cpp	28;"	f	line:28
+FrmPopupEditCharForm	main.h	79;"	p	line:79
+FrmPopupEditEffectForm	EditEffectForm.cpp	21;"	f	line:21
+FrmPopupInterruptForm	SelectForm.cpp	148;"	f	line:148
+FrmPopupInterruptForm	main.h	98;"	p	line:98
+FrmPopupKillForm	SelectForm.cpp	177;"	f	line:177
+FrmPopupKillForm	main.h	97;"	p	line:97
+FrmPopupSelectForm	SelectForm.cpp	40;"	f	line:40
+FrmPopupTextForm	TextForm.c	12;"	f	line:12
+FrmPopupTextForm	main.h	86;"	p	line:86
+FrmPopupTriggerForm	SelectForm.cpp	114;"	f	line:114
+FrmPopupTriggerForm	main.h	96;"	p	line:96
+GetObjectPtr	main.h	27;"	d	line:27
+HowToID	MainRsc.h	90;"	d	line:90
+ID_MAXIMUM	Performer.h	14;"	d	line:14
+INIT_COLUMN	OverviewForm.cpp	17;"	d	line:17
+InitOutOfRangeErrorID	MainRsc.h	173;"	d	line:173
+InitOverviewForm	OverviewForm.cpp	33;"	f	line:33
+InitOverviewForm	main.h	57;"	p	line:57
+InitTieHelpString	MainRsc.h	132;"	d	line:132
+InitiativeFieldID	MainRsc.h	70;"	d	line:70
+InterruptAction	SelectForm.cpp	138;"	f	line:138
+InterruptBID	MainRsc.h	143;"	d	line:143
+InterruptMID	MainRsc.h	155;"	d	line:155
+InvalidModifierID	MainRsc.h	221;"	d	line:221
+KillAction	SelectForm.cpp	167;"	f	line:167
+KillBID	MainRsc.h	142;"	d	line:142
+KillMID	MainRsc.h	154;"	d	line:154
+LoadInitCallback	OverviewForm.cpp	188;"	f	line:188
+LoadNameCallback	OverviewForm.cpp	301;"	f	line:301
+LoadNameCallback	RollInitForm.cpp	93;"	f	line:93
+LoadPerformers	Performer.cpp	90;"	f	line:90
+LoadPerformers	main.h	72;"	p	line:72
+LogoFormID	MainRsc.h	113;"	d	line:113
+LogoFormVersionID	MainRsc.h	114;"	d	line:114
+MAX_NAME_BYTES	MainRsc.h	37;"	d	line:37
+MAX_NUMERIC_BYTES	MainRsc.h	40;"	d	line:40
+MISC_SECTION	main.h	21;"	d	line:21
+MaxDelayFieldID	MainRsc.h	175;"	d	line:175
+ModifierFieldID	MainRsc.h	220;"	d	line:220
+NAME_COLUMN	OverviewForm.cpp	21;"	d	line:21
+NAME_COLUMN	RollInitForm.cpp	15;"	d	line:15
+NCopyStringID	MainRsc.h	234;"	d	line:234
+NUM_COLUMNS	MainRsc.h	66;"	d	line:66
+NUM_ROWS	MainRsc.h	65;"	d	line:65
+NameFieldID	MainRsc.h	202;"	d	line:202
+NewCharBID	MainRsc.h	76;"	d	line:76
+NewCharID	MainRsc.h	82;"	d	line:82
+NoCombatantsErrorID	MainRsc.h	73;"	d	line:73
+NoDelayingCharactersAlertID	MainRsc.h	191;"	d	line:191
+NoOtherPerformersAlertID	MainRsc.h	193;"	d	line:193
+NoOwnerStringID	MainRsc.h	206;"	d	line:206
+NoReadiedCharactersAlertID	MainRsc.h	194;"	d	line:194
+NoSelectionsAlertID	MainRsc.h	192;"	d	line:192
+NominalDurationAlertID	MainRsc.h	207;"	d	line:207
+NoneBID	MainRsc.h	179;"	d	line:179
+NoneSelectedID	MainRsc.h	74;"	d	line:74
+OFFSET_ACTIVE	Performer.cpp	27;"	d	line:27
+OFFSET_AWARE	Performer.cpp	49;"	d	line:49
+OFFSET_COUNTER	Performer.cpp	57;"	d	line:57
+OFFSET_DELAYING	Performer.cpp	37;"	d	line:37
+OFFSET_DURATION	Performer.cpp	60;"	d	line:60
+OFFSET_INITIATIVE	Performer.cpp	21;"	d	line:21
+OFFSET_MODIFIER	Performer.cpp	63;"	d	line:63
+OFFSET_NAMESIZE	Performer.cpp	24;"	d	line:24
+OFFSET_NAME_CHAR	Performer.cpp	66;"	d	line:66
+OFFSET_NAME_EFFECT	Performer.cpp	82;"	d	line:82
+OFFSET_NEXT	Performer.cpp	18;"	d	line:18
+OFFSET_NOMINAL	Performer.cpp	70;"	d	line:70
+OFFSET_N_SUMMONED	Performer.cpp	79;"	d	line:79
+OFFSET_OWNER	Performer.cpp	76;"	d	line:76
+OFFSET_PC	Performer.cpp	53;"	d	line:53
+OFFSET_PERFDATA	Performer.cpp	33;"	d	line:33
+OFFSET_POINTER	Performer.cpp	12;"	d	line:12
+OFFSET_PREV	Performer.cpp	15;"	d	line:15
+OFFSET_READIED	Performer.cpp	41;"	d	line:41
+OFFSET_REMAINING	Performer.cpp	73;"	d	line:73
+OFFSET_TAKINGREADIED	Performer.cpp	45;"	d	line:45
+OFFSET_TYPE	Performer.cpp	30;"	d	line:30
+OGLID	MainRsc.h	92;"	d	line:92
+OpenRecord	Performer.cpp	513;"	f	line:513	class:Performer
+OverviewFormID	MainRsc.h	67;"	d	line:67
+OverviewFormUpdate	OverviewForm.cpp	71;"	f	line:71
+OverviewHelpString	MainRsc.h	94;"	d	line:94
+OverviewMID	MainRsc.h	157;"	d	line:157
+OverviewMenuBarID	MainRsc.h	81;"	d	line:81
+OwnerFieldID	MainRsc.h	201;"	d	line:201
+PERF_COUNT	main.h	30;"	d	line:30
+PERF_SECTION	CombatQOGC.h	187;"	m	line:187	class:Performer
+PERF_SECTION	CombatQOGC.h	193;"	m	line:193	class:Performer
+PERF_SECTION	CombatQOGC.h	195;"	m	line:195	class:Performer
+PERF_SECTION	CombatQOGC.h	197;"	m	line:197	class:Performer
+PERF_SECTION	CombatQOGC.h	201;"	m	line:201	class:Performer
+PERF_SECTION	CombatQOGC.h	203;"	m	line:203	class:Performer
+PERF_SECTION	CombatQOGC.h	205;"	m	line:205	class:Performer
+PERF_SECTION	CombatQOGC.h	207;"	m	line:207	class:Performer
+PERF_SECTION	CombatQOGC.h	213;"	m	line:213	class:Performer
+PERF_SECTION	CombatQOGC.h	215;"	m	line:215	class:Performer
+PERF_SECTION	CombatQOGC.h	223;"	m	line:223	class:Performer
+PERF_SECTION	CombatQOGC.h	225;"	m	line:225	class:Performer
+PERF_SECTION	CombatQOGC.h	227;"	m	line:227	class:Performer
+PERF_SECTION	CombatQOGC.h	229;"	m	line:229	class:Performer
+PERF_SECTION	CombatQOGC.h	231;"	m	line:231	class:Performer
+PERF_SECTION	CombatQOGC.h	233;"	m	line:233	class:Performer
+PERF_SECTION	CombatQOGC.h	235;"	m	line:235	class:Performer
+PERF_SECTION	CombatQOGC.h	237;"	m	line:237	class:Performer
+PERF_SECTION	CombatQOGC.h	239;"	m	line:239	class:Performer
+PERF_SECTION	CombatQOGC.h	245;"	m	line:245	class:Performer
+PERF_SECTION	CombatQOGC.h	260;"	m	line:260	class:Performer
+PERF_SECTION	CombatQOGC.h	262;"	m	line:262	class:Performer
+PERF_SECTION	CombatQOGC.h	264;"	m	line:264	class:Performer
+PERF_SECTION	CombatQOGC.h	266;"	m	line:266	class:Performer
+PERF_SECTION	CombatQOGC.h	268;"	m	line:268	class:Performer
+PERF_SECTION	CombatQOGC.h	271;"	m	line:271	class:Performer
+PERF_SECTION	CombatQOGC.h	273;"	m	line:273	class:Performer
+PERF_SECTION	CombatQOGC.h	279;"	m	line:279	class:Performer
+PERF_SECTION	CombatQOGC.h	281;"	m	line:281	class:Performer
+PERF_SECTION	CombatQOGC.h	292;"	m	line:292	class:Character
+PERF_SECTION	CombatQOGC.h	293;"	m	line:293	class:Character
+PERF_SECTION	CombatQOGC.h	294;"	m	line:294	class:Character
+PERF_SECTION	CombatQOGC.h	295;"	m	line:295	class:Character
+PERF_SECTION	CombatQOGC.h	296;"	m	line:296	class:Character
+PERF_SECTION	CombatQOGC.h	297;"	m	line:297	class:Character
+PERF_SECTION	CombatQOGC.h	298;"	m	line:298	class:Character
+PERF_SECTION	CombatQOGC.h	300;"	m	line:300	class:Character
+PERF_SECTION	CombatQOGC.h	303;"	m	line:303	class:Character
+PERF_SECTION	CombatQOGC.h	306;"	m	line:306	class:Character
+PERF_SECTION	CombatQOGC.h	308;"	m	line:308	class:Character
+PERF_SECTION	CombatQOGC.h	310;"	m	line:310	class:Character
+PERF_SECTION	CombatQOGC.h	313;"	m	line:313	class:Character
+PERF_SECTION	CombatQOGC.h	315;"	m	line:315	class:Character
+PERF_SECTION	CombatQOGC.h	317;"	m	line:317	class:Character
+PERF_SECTION	CombatQOGC.h	319;"	m	line:319	class:Character
+PERF_SECTION	CombatQOGC.h	321;"	m	line:321	class:Character
+PERF_SECTION	CombatQOGC.h	323;"	m	line:323	class:Character
+PERF_SECTION	CombatQOGC.h	325;"	m	line:325	class:Character
+PERF_SECTION	CombatQOGC.h	327;"	m	line:327	class:Character
+PERF_SECTION	CombatQOGC.h	329;"	m	line:329	class:Character
+PERF_SECTION	CombatQOGC.h	331;"	m	line:331	class:Character
+PERF_SECTION	CombatQOGC.h	333;"	m	line:333	class:Character
+PERF_SECTION	CombatQOGC.h	335;"	m	line:335	class:Character
+PERF_SECTION	CombatQOGC.h	337;"	m	line:337	class:Character
+PERF_SECTION	CombatQOGC.h	339;"	m	line:339	class:Character
+PERF_SECTION	CombatQOGC.h	341;"	m	line:341	class:Character
+PERF_SECTION	CombatQOGC.h	343;"	m	line:343	class:Character
+PERF_SECTION	CombatQOGC.h	345;"	m	line:345	class:Character
+PERF_SECTION	CombatQOGC.h	347;"	m	line:347	class:Character
+PERF_SECTION	CombatQOGC.h	349;"	m	line:349	class:Character
+PERF_SECTION	CombatQOGC.h	352;"	m	line:352	class:Character
+PERF_SECTION	CombatQOGC.h	354;"	m	line:354	class:Character
+PERF_SECTION	CombatQOGC.h	356;"	m	line:356	class:Character
+PERF_SECTION	CombatQOGC.h	358;"	m	line:358	class:Character
+PERF_SECTION	CombatQOGC.h	360;"	m	line:360	class:Character
+PERF_SECTION	CombatQOGC.h	362;"	m	line:362	class:Character
+PERF_SECTION	CombatQOGC.h	367;"	m	line:367	class:Character
+PERF_SECTION	CombatQOGC.h	379;"	m	line:379	class:Effect
+PERF_SECTION	CombatQOGC.h	380;"	m	line:380	class:Effect
+PERF_SECTION	CombatQOGC.h	381;"	m	line:381	class:Effect
+PERF_SECTION	CombatQOGC.h	382;"	m	line:382	class:Effect
+PERF_SECTION	CombatQOGC.h	383;"	m	line:383	class:Effect
+PERF_SECTION	CombatQOGC.h	384;"	m	line:384	class:Effect
+PERF_SECTION	CombatQOGC.h	385;"	m	line:385	class:Effect
+PERF_SECTION	CombatQOGC.h	389;"	m	line:389	class:Effect
+PERF_SECTION	CombatQOGC.h	392;"	m	line:392	class:Effect
+PERF_SECTION	CombatQOGC.h	394;"	m	line:394	class:Effect
+PERF_SECTION	CombatQOGC.h	396;"	m	line:396	class:Effect
+PERF_SECTION	CombatQOGC.h	398;"	m	line:398	class:Effect
+PERF_SECTION	CombatQOGC.h	400;"	m	line:400	class:Effect
+PERF_SECTION	CombatQOGC.h	402;"	m	line:402	class:Effect
+PERF_SECTION	CombatQOGC.h	404;"	m	line:404	class:Effect
+PERF_SECTION	CombatQOGC.h	406;"	m	line:406	class:Effect
+PERF_SECTION	CombatQOGC.h	408;"	m	line:408	class:Effect
+PERF_SECTION	CombatQOGC.h	410;"	m	line:410	class:Effect
+PERF_SECTION	CombatQOGC.h	412;"	m	line:412	class:Effect
+PERF_SECTION	CombatQOGC.h	414;"	m	line:414	class:Effect
+PERF_SECTION	CombatQOGC.h	425;"	m	line:425	class:Effect
+PERF_SECTION	CombatQOGC.h	427;"	m	line:427	class:Effect
+PERF_SECTION	main.h	20;"	d	line:20
+PREFERENCES_VERSION	Main.cpp	31;"	d	line:31
+PREFS_ID_DB_NAME	Main.cpp	35;"	d	line:35
+PREFS_ID_MISC	Main.cpp	33;"	d	line:33
+PerfNode	EditEffectForm.cpp	28;"	c	line:28
+PerfNode	EditEffectForm.cpp	30;"	f	line:30	class:PerfNode
+Performer	CombatQOGC.h	180;"	c	line:180
+Performer	CombatQOGC.h	183;"	f	line:183	class:Performer
+Performer	CombatQOGC.h	185;"	p	line:185	class:Performer
+Performer	Performer.cpp	421;"	f	line:421	class:Performer
+PerformerType	CombatQOGC.h	177;"	t	line:177
+PerformerTypeEnum	CombatQOGC.h	174;"	g	line:174
+PickFieldID	MainRsc.h	232;"	d	line:232
+PickNumber	Main.cpp	52;"	f	line:52
+PickNumber	main.h	62;"	p	line:62
+PickNumberID	MainRsc.h	231;"	d	line:231
+PilotMain	Main.cpp	534;"	f	line:534
+PlayFormID	MainRsc.h	129;"	d	line:129
+PlayFormMenuID	MainRsc.h	146;"	d	line:146
+PlayHelpString	MainRsc.h	167;"	d	line:167
+PlayerCharacterCBID	MainRsc.h	218;"	d	line:218
+RETURNGET	Performer.cpp	644;"	d	line:644
+ROLL_COLS	MainRsc.h	101;"	d	line:101
+ROLL_COLUMN	RollInitForm.cpp	17;"	d	line:17
+ROLL_ROWS	MainRsc.h	100;"	d	line:100
+ReadiedCBID	MainRsc.h	215;"	d	line:215
+ReadiedTriggeringAlertID	MainRsc.h	195;"	d	line:195
+RemainingDurationAlertID	MainRsc.h	208;"	d	line:208
+RemainingFieldID	MainRsc.h	204;"	d	line:204
+Roll10ButtonID	MainRsc.h	247;"	d	line:247
+Roll11ButtonID	MainRsc.h	248;"	d	line:248
+Roll12ButtonID	MainRsc.h	249;"	d	line:249
+Roll13ButtonID	MainRsc.h	250;"	d	line:250
+Roll14ButtonID	MainRsc.h	251;"	d	line:251
+Roll15ButtonID	MainRsc.h	252;"	d	line:252
+Roll16ButtonID	MainRsc.h	253;"	d	line:253
+Roll17ButtonID	MainRsc.h	254;"	d	line:254
+Roll18ButtonID	MainRsc.h	255;"	d	line:255
+Roll19ButtonID	MainRsc.h	256;"	d	line:256
+Roll1ButtonID	MainRsc.h	238;"	d	line:238
+Roll20ButtonID	MainRsc.h	257;"	d	line:257
+Roll2ButtonID	MainRsc.h	239;"	d	line:239
+Roll3ButtonID	MainRsc.h	240;"	d	line:240
+Roll4ButtonID	MainRsc.h	241;"	d	line:241
+Roll5ButtonID	MainRsc.h	242;"	d	line:242
+Roll6ButtonID	MainRsc.h	243;"	d	line:243
+Roll7ButtonID	MainRsc.h	244;"	d	line:244
+Roll8ButtonID	MainRsc.h	245;"	d	line:245
+Roll9ButtonID	MainRsc.h	246;"	d	line:246
+RollButtonsX	MainRsc.h	236;"	d	line:236
+RollInitFormID	MainRsc.h	99;"	d	line:99
+RoundFieldID	MainRsc.h	69;"	d	line:69
+SIZE_ACTIVE	Performer.cpp	28;"	d	line:28
+SIZE_AWARE	Performer.cpp	50;"	d	line:50
+SIZE_COUNTER	Performer.cpp	58;"	d	line:58
+SIZE_DELAYING	Performer.cpp	38;"	d	line:38
+SIZE_DURATION	Performer.cpp	61;"	d	line:61
+SIZE_INITIATIVE	Performer.cpp	22;"	d	line:22
+SIZE_MODIFIER	Performer.cpp	64;"	d	line:64
+SIZE_NAMESIZE	Performer.cpp	25;"	d	line:25
+SIZE_NEXT	Performer.cpp	19;"	d	line:19
+SIZE_NOMINAL	Performer.cpp	71;"	d	line:71
+SIZE_N_SUMMONED	Performer.cpp	80;"	d	line:80
+SIZE_OWNER	Performer.cpp	77;"	d	line:77
+SIZE_PC	Performer.cpp	54;"	d	line:54
+SIZE_POINTER	Performer.cpp	13;"	d	line:13
+SIZE_PREV	Performer.cpp	16;"	d	line:16
+SIZE_READIED	Performer.cpp	42;"	d	line:42
+SIZE_REMAINING	Performer.cpp	74;"	d	line:74
+SIZE_TAKINGREADIED	Performer.cpp	46;"	d	line:46
+SIZE_TYPE	Performer.cpp	31;"	d	line:31
+SaveInitCallback	OverviewForm.cpp	245;"	f	line:245
+SaveNameCallback	OverviewForm.cpp	330;"	f	line:330
+SavedPreferences	Main.cpp	45;"	t	line:45
+ScrollDownID	MainRsc.h	48;"	d	line:48
+ScrollUpID	MainRsc.h	47;"	d	line:47
+SelectFormID	MainRsc.h	185;"	d	line:185
+SelectInterruptStringID	MainRsc.h	189;"	d	line:189
+SelectKillStringID	MainRsc.h	188;"	d	line:188
+SelectListID	MainRsc.h	186;"	d	line:186
+SelectTextFieldID	MainRsc.h	190;"	d	line:190
+SelectTriggerStringID	MainRsc.h	187;"	d	line:187
+SelectionAction	SelectForm.cpp	16;"	v	line:16
+SortTableID	MainRsc.h	84;"	d	line:84
+SpellNumberAlertID	MainRsc.h	223;"	d	line:223
+StartApplication	Main.cpp	258;"	f	line:258
+StartCombatBID	MainRsc.h	78;"	d	line:78
+StartCombatID	MainRsc.h	87;"	d	line:87
+StopApplication	Main.cpp	390;"	f	line:390
+StopOverviewForm	OverviewForm.cpp	48;"	f	line:48
+StopOverviewForm	main.h	58;"	p	line:58
+StrIsI	Main.cpp	101;"	f	line:101
+StrIsI	main.h	67;"	p	line:67
+StrSize	main.h	24;"	d	line:24
+StringAboutID	MainRsc.h	123;"	d	line:123
+StringAboutTitleID	MainRsc.h	124;"	d	line:124
+StringOGLID	MainRsc.h	120;"	d	line:120
+StringOGLTitleID	MainRsc.h	121;"	d	line:121
+SurpriseRoundString	MainRsc.h	165;"	d	line:165
+TableID	MainRsc.h	50;"	d	line:50
+TakingReadiedCBID	MainRsc.h	217;"	d	line:217
+TextFormFieldID	MainRsc.h	108;"	d	line:108
+TextFormID	MainRsc.h	106;"	d	line:106
+TextStringID	SelectForm.cpp	5;"	v	line:5
+TieAlertID	MainRsc.h	131;"	d	line:131
+TrialAlertID	MainRsc.h	72;"	d	line:72
+TriggerAction	SelectForm.cpp	106;"	f	line:106
+TriggerBID	MainRsc.h	144;"	d	line:144
+TriggerMID	MainRsc.h	156;"	d	line:156
+TxtGetNumChar	Main.cpp	85;"	f	line:85
+TxtGetNumChar	main.h	68;"	p	line:68
+UpdatePlayForm	PlayForm.cpp	52;"	f	line:52
+UpdateTablePage	OverviewForm.cpp	87;"	f	line:87
+UpdateTablePage	RollInitForm.cpp	34;"	f	line:34
+VerifyDeleteAlertID	MainRsc.h	222;"	d	line:222
+VerifyGotoRollInit	OverviewForm.cpp	356;"	f	line:356
+VersionID	MainRsc.h	55;"	d	line:55
+__MAIN_H__	main.h	6;"	d	line:6
+__OGC_H__	CombatQOGC.h	169;"	d	line:169
+__PERFORMER_H__	Performer.h	7;"	d	line:7
+act	CombatQOGC.cpp	439;"	f	line:439	class:Character
+act	CombatQOGC.cpp	660;"	f	line:660	class:Effect
+act	CombatQOGC.h	243;"	p	line:243	class:Performer	implementation:pure virtual
+activate	CombatQOGC.cpp	311;"	f	line:311	class:Performer
+activate	CombatQOGC.cpp	354;"	f	line:354	class:Character
+activate	CombatQOGC.cpp	595;"	f	line:595	class:Effect
+addSummoned	Performer.cpp	1271;"	f	line:1271	class:Effect
+addToInitList	CombatQOGC.cpp	366;"	f	line:366	class:Character
+addToInitList	CombatQOGC.cpp	629;"	f	line:629	class:Effect
+addToInitList	CombatQOGC.h	221;"	p	line:221	class:Performer	implementation:pure virtual
+append	EditEffectForm.cpp	41;"	f	line:41	class:PerfNode
+centerX	MainRsc.h	12;"	d	line:12
+character	EditCharForm.cpp	16;"	v	line:16
+copy	CombatQOGC.h	189;"	p	line:189	class:Performer	implementation:pure virtual
+copy	Performer.cpp	1068;"	f	line:1068	class:Character
+copy	Performer.cpp	1222;"	f	line:1222	class:Effect
+counterCharacterName	Main.cpp	41;"	v	line:41
+counterCharacterName	main.h	41;"	m	line:41	struct:
+counterCharacterName	main.h	45;"	x	line:45
+creatorName	EditCharForm.cpp	17;"	v	line:17
+current	CombatQOGC.cpp	185;"	v	line:185
+current	CombatQOGC.h	434;"	x	line:434
+currentID	main.h	40;"	m	line:40	struct:
+dbEncounter	Main.cpp	25;"	v	line:25
+dbEncounter	main.h	50;"	x	line:50
+deactivate	CombatQOGC.cpp	321;"	f	line:321	class:Performer
+deactivate	CombatQOGC.cpp	358;"	f	line:358	class:Character
+deactivate	CombatQOGC.cpp	601;"	f	line:601	class:Effect
+decrement	CombatQOGC.cpp	619;"	f	line:619	class:Effect
+delay	CombatQOGC.cpp	451;"	f	line:451	class:Character
+delay	CombatQOGC.cpp	476;"	f	line:476	class:Character
+delayTrigger	CombatQOGC.cpp	485;"	f	line:485	class:Character
+delayer	DelayForm.cpp	5;"	v	line:5
+die	CombatQOGC.cpp	338;"	f	line:338	class:Performer
+effect	EditEffectForm.cpp	11;"	v	line:11
+fieldCharWidth	MainRsc.h	8;"	d	line:8
+fieldCharWidthBold	MainRsc.h	10;"	d	line:10
+first	CombatQOGC.cpp	183;"	v	line:183
+first	CombatQOGC.h	432;"	x	line:432
+firstExecution	Main.cpp	38;"	v	line:38
+firstExecution	main.h	48;"	x	line:48
+firstID	main.h	39;"	m	line:39	struct:
+firstSummoned	EditEffectForm.cpp	55;"	v	line:55
+get	Performer.cpp	615;"	f	line:615	class:Performer
+get	Performer.cpp	630;"	f	line:630	class:Performer
+getCounter	Performer.cpp	1136;"	f	line:1136	class:Character
+getDelayInitMax	CombatQOGC.cpp	513;"	f	line:513	class:Character
+getDuration	Performer.cpp	1154;"	f	line:1154	class:Character
+getID	Performer.cpp	562;"	f	line:562	class:Performer
+getIEncounter	Performer.cpp	983;"	f	line:983	class:Performer
+getInitiative	Performer.cpp	976;"	f	line:976	class:Performer
+getModifier	Performer.cpp	1084;"	f	line:1084	class:Character
+getNameHandle	Performer.cpp	814;"	f	line:814	class:Performer
+getNameHandle	Performer.cpp	841;"	f	line:841	class:Performer
+getNameOffset	CombatQOGC.h	277;"	p	line:277	class:Performer	implementation:pure virtual
+getNameOffset	Performer.cpp	1080;"	f	line:1080	class:Character
+getNameOffset	Performer.cpp	1230;"	f	line:1230	class:Effect
+getNamePlusNumber	Performer.cpp	931;"	f	line:931	class:Performer
+getNameSize	Performer.cpp	969;"	f	line:969	class:Performer
+getNext	EditEffectForm.cpp	47;"	f	line:47	class:PerfNode
+getNext	Performer.cpp	660;"	f	line:660	class:Performer
+getNominal	Performer.cpp	1234;"	f	line:1234	class:Effect
+getOwner	Performer.cpp	1248;"	f	line:1248	class:Effect
+getPerf	EditEffectForm.cpp	48;"	f	line:48	class:PerfNode
+getPrev	Performer.cpp	649;"	f	line:649	class:Performer
+getRemaining	Performer.cpp	1241;"	f	line:1241	class:Effect
+getType	Performer.cpp	990;"	f	line:990	class:Performer
+hasStandardAction	CombatQOGC.cpp	420;"	f	line:420	class:Character
+iEncounterLast	RollInitForm.cpp	27;"	v	line:27
+iEncounterTop	OverviewForm.cpp	24;"	v	line:24
+iEncounterTop	RollInitForm.cpp	22;"	v	line:22
+id	CombatQOGC.h	257;"	m	line:257	class:Performer
+incrementCounter	Performer.cpp	1145;"	f	line:1145	class:Character
+initHandle	OverviewForm.cpp	19;"	v	line:19
+initMax	DelayForm.cpp	7;"	v	line:7
+initMin	DelayForm.cpp	6;"	v	line:6
+insertAfter	Performer.cpp	674;"	f	line:674	class:Performer
+insertBefore	Performer.cpp	745;"	f	line:745	class:Performer
+interrupt	CombatQOGC.cpp	529;"	f	line:529	class:Character
+isActive	Performer.cpp	994;"	f	line:994	class:Performer
+isAware	Performer.cpp	1118;"	f	line:1118	class:Character
+isDelaying	Performer.cpp	1091;"	f	line:1091	class:Character
+isDelayingCharacter	SelectForm.cpp	94;"	f	line:94
+isKillable	SelectForm.cpp	160;"	f	line:160
+isPC	CombatQOGC.h	217;"	p	line:217	class:Performer	implementation:pure virtual
+isPC	Performer.cpp	1127;"	f	line:1127	class:Character
+isPC	Performer.cpp	1267;"	f	line:1267	class:Effect
+isReadied	Performer.cpp	1100;"	f	line:1100	class:Character
+isReadiedCharacter	SelectForm.cpp	126;"	f	line:126
+isTakingReadied	Performer.cpp	1109;"	f	line:1109	class:Character
+itemsHandle	SelectForm.cpp	7;"	v	line:7
+itemsP	SelectForm.cpp	11;"	v	line:11
+itemsText	SelectForm.cpp	9;"	v	line:9
+nameCopy	Performer.cpp	853;"	f	line:853	class:Performer
+next	EditEffectForm.cpp	51;"	m	line:51	class:PerfNode
+numItems	SelectForm.cpp	13;"	v	line:13
+owner	EditEffectForm.cpp	9;"	v	line:9
+ownerNameHandle	EditEffectForm.cpp	10;"	v	line:10
+perf	EditEffectForm.cpp	50;"	m	line:50	class:PerfNode
+popupDelayForm	CombatQOGC.h	253;"	p	line:253	class:Performer	implementation:pure virtual
+popupDelayForm	CombatQOGC.h	386;"	f	line:386	class:Effect
+popupDelayForm	DelayForm.cpp	9;"	f	line:9	class:Character
+popupEditForm	CombatQOGC.h	249;"	p	line:249	class:Performer	implementation:pure virtual
+popupEditForm	EditCharForm.cpp	20;"	f	line:20	class:Character
+popupEditForm	EditEffectForm.cpp	14;"	f	line:14	class:Effect
+prepareToAct	CombatQOGC.cpp	427;"	f	line:427	class:Character
+prepareToAct	CombatQOGC.cpp	655;"	f	line:655	class:Effect
+prepareToAct	CombatQOGC.h	241;"	p	line:241	class:Performer	implementation:pure virtual
+queryPerformerP	Performer.cpp	127;"	f	line:127
+queryPerformerPfromID	Performer.cpp	149;"	f	line:149
+ready	CombatQOGC.cpp	521;"	f	line:521	class:Character
+refocus	CombatQOGC.cpp	557;"	f	line:557	class:Character
+removeFromInitList	CombatQOGC.cpp	276;"	f	line:276	class:Performer
+removeSummoned	Performer.cpp	1317;"	f	line:1317	class:Effect
+round	CombatQOGC.cpp	180;"	v	line:180
+round	CombatQOGC.h	436;"	x	line:436
+round	main.h	38;"	m	line:38	struct:
+rowSelected	OverviewForm.cpp	27;"	v	line:27
+saveInitExit	OverviewForm.cpp	240;"	d	line:240
+set	Performer.cpp	567;"	f	line:567	class:Performer
+set	Performer.cpp	585;"	f	line:585	class:Performer
+setActive	Performer.cpp	997;"	f	line:997	class:Performer
+setAware	Performer.cpp	1123;"	f	line:1123	class:Character
+setCounter	Performer.cpp	1139;"	f	line:1139	class:Character
+setDelaying	Performer.cpp	1096;"	f	line:1096	class:Character
+setDuration	Performer.cpp	1157;"	f	line:1157	class:Character
+setInitiative	Performer.cpp	979;"	f	line:979	class:Performer
+setInitiativeRoll	CombatQOGC.cpp	362;"	f	line:362	class:Character
+setModifier	Performer.cpp	1087;"	f	line:1087	class:Character
+setName	CombatQOGC.h	209;"	p	line:209	class:Performer
+setName	Performer.cpp	870;"	f	line:870	class:Performer
+setNameSize	Performer.cpp	972;"	f	line:972	class:Performer
+setNext	Performer.cpp	667;"	f	line:667	class:Performer
+setNominal	Performer.cpp	1237;"	f	line:1237	class:Effect
+setOwner	Performer.cpp	1261;"	f	line:1261	class:Effect
+setPC	Performer.cpp	1132;"	f	line:1132	class:Character
+setPrev	Performer.cpp	656;"	f	line:656	class:Performer
+setReadied	Performer.cpp	1105;"	f	line:1105	class:Character
+setRemaining	Performer.cpp	1244;"	f	line:1244	class:Effect
+setTakingReadied	Performer.cpp	1114;"	f	line:1114	class:Character
+setUpPlayForm	CombatQOGC.h	251;"	p	line:251	class:Performer	implementation:pure virtual
+setUpPlayForm	PlayForm.cpp	27;"	f	line:27	class:Effect
+setUpPlayForm	PlayForm.cpp	5;"	f	line:5	class:Character
+summon	CombatQOGC.cpp	686;"	f	line:686	class:Effect
+swapUpdateCodeForMaxRecordIndex	OverviewForm.cpp	57;"	f	line:57
+swapUpdateCodeForMaxRecordIndex	main.h	56;"	p	line:56
+textFormStringID	TextForm.c	4;"	v	line:4
+textFormTitle	TextForm.c	3;"	v	line:3
+~Character	Performer.cpp	1044;"	f	line:1044	class:Character
+~Effect	Performer.cpp	1210;"	f	line:1210	class:Effect
+~PerfNode	EditEffectForm.cpp	34;"	f	line:34	class:PerfNode
+~Performer	Performer.cpp	487;"	f	line:487	class:Performer

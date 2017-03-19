@@ -1,0 +1,77 @@
+#include "MainRsc.h"
+
+
+FORM ID PlayFormID  AT ( 0 0 160 160 )
+NOFRAME MENUID PlayFormMenuID
+BEGIN
+    TITLE "Current Combatant"
+    LABEL "Round: " AUTOID AT (5 15)
+    FIELD RoundFieldID AT (PREVRIGHT PREVTOP 40 13) MAXCHARS 255  FONT 0 NONEDITABLE NUMERIC
+    LABEL "Initiative: " AUTOID AT (5 PREVBOTTOM)
+    FIELD InitiativeFieldID AT (PREVRIGHT PREVTOP 40 13) MAXCHARS 255  FONT 0 NONEDITABLE NUMERIC
+    LABEL "Name: " AUTOID   AT (5 PREVBOTTOM)
+    FIELD NameFieldID AT (PREVRIGHT PREVTOP 123 13) MAXCHARS MAX_NAME_BYTES  FONT 0 EDITABLE UNDERLINED
+    LABEL "Rounds Left: " ID EffectDurationLabelID   AT (5 PREVBOTTOM) NONUSABLE
+    FIELD RemainingFieldID AT (PREVRIGHT PREVTOP 97 13) MAXCHARS 255  FONT 0 NONEDITABLE NUMERIC NONUSABLE
+    BUTTON "Take Action" ID CharNormalBID AT (5 PREVBOTTOM+1 AUTO AUTO)
+    BUTTON "Take Standard or Move Action" ID CharStandardBID   AT (PREVLEFT PREVTOP AUTO AUTO) NONUSABLE
+    BUTTON "Continue" ID EffectContinueBID AT (PREVLEFT PREVTOP AUTO AUTO) NONUSABLE
+    BUTTON "Create Effect" ID CharCreateEffectBID   AT (PREVLEFT PREVBOTTOM+3 AUTO AUTO)
+    BUTTON "Delay Turn" ID CharDelayBID   AT (5 PREVBOTTOM+3 AUTO AUTO)
+    BUTTON "Ready an Action" ID CharReadyBID   AT (PREVRIGHT+3 PREVTOP AUTO AUTO)
+    BUTTON "Trigger Delayed Action" ID TriggerBID  AT (5 PREVBOTTOM+3 AUTO AUTO)
+    BUTTON "Interrupt by Readied" ID InterruptBID  AT (PREVLEFT PREVBOTTOM+3 AUTO AUTO)
+BUTTON "Remove Other" ID KillBID  AT (5 PREVBOTTOM+4 AUTO AUTO)
+
+    GRAFFITISTATEINDICATOR AT (147 BOTTOM@PREVBOTTOM)
+END
+
+MENU ID PlayFormMenuID
+BEGIN
+     PULLDOWN "Char"
+     BEGIN
+          MENUITEM "Act" ID CharActMID "A"
+          MENUITEM "Create Effect" ID CharCreateEffectMID  "C"
+          MENUITEM "Delay" ID CharDelayMID "D"
+          MENUITEM "Ready" ID CharReadyMID "R"
+          MENUITEM "Refocus" ID CharRefocusMID "F"
+     END
+     PULLDOWN "Effect"
+     BEGIN
+          MENUITEM "Continue" ID EffectContinueMID "O"
+     END
+     PULLDOWN "Any"
+     BEGIN
+          MENUITEM "Remove" ID DieMID "X"
+          MENUITEM "Remove Other" ID KillMID "K"
+          MENUITEM "Interrupt by Readied" ID InterruptMID "I"
+          MENUITEM "Trigger Delayed" ID TriggerMID "T"
+          MENUITEM SEPARATOR
+          MENUITEM "Overview" ID OverviewMID "V"
+          MENUITEM "End Combat" ID EndMID "."
+     END
+     PULLDOWN "Help"
+     BEGIN
+          MENUITEM "Instructions" ID HowToID  "H"
+          MENUITEM SEPARATOR
+          MENUITEM "About Combat-Q" ID AboutID
+END
+END
+/*
+          MENUITEM "Undo" ID UndoMID "U"
+          MENUITEM "Redo" ID RedoMID "E"
+*/
+
+ALERT ID EncounterEndAlertID
+CONFIRMATION HELPID EncounterEndStringID DEFAULTBUTTON 1
+BEGIN
+     TITLE "Confirm End Combat"
+     MESSAGE "Are you sure you want to end this combat?"
+     BUTTONS "End" "Cancel"
+END
+
+STRING ID EncounterEndStringID   "Press \"End\" to end the combat. All characters and effects will be removed from combat, and round number will reset to zero.\n\nPress \"Cancel\" to make no changes."
+STRING ID SurpriseRoundString "Surprise"
+STRING ID EffectEndingString "Ending Now!"
+
+STRING ID PlayHelpString FILE "PlayHelp.txt"

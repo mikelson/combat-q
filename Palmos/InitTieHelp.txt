@@ -1,0 +1,3 @@
+Combat-Q Ties
+
+One or both of the characters listed are entering combat, but they have the same initiative check results and initiative modifiers. Make initiative checks for both characters and click the button for the winner, rerolling ties.

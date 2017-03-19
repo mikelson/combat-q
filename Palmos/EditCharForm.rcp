@@ -1,0 +1,66 @@
+#include "MainRsc.h"
+
+
+FORM ID EditCharFormID  AT ( 2 13 156 145 )
+MODAL HELPID EditCharHelpString
+BEGIN
+    TITLE "Edit Character"
+    LABEL "Name:" AUTOID AT (3 16) FONT 1
+    FIELD ID NameFieldID  AT (PREVRIGHT PREVTOP 115 13) MAXCHARS MAX_NAME_BYTES EDITABLE UNDERLINED
+    LABEL "Initiative Modifier: " AUTOID AT (3 PREVBOTTOM) FONT 1
+    FIELD ID ModifierFieldID  AT (105 PREVTOP 40 13) MAXCHARS MAX_NUMERIC_BYTES EDITABLE  UNDERLINED
+    LABEL "\"Spell\" Number:" AUTOID AT (3 PREVBOTTOM) FONT 1
+    FIELD ID CountFieldID  AT (105 PREVTOP 40 13) MAXCHARS MAX_NUMERIC_BYTES EDITABLE NUMERIC UNDERLINED
+    LABEL "(Default label for continuing effects.)" AUTOID AT (3 PREVBOTTOM)
+    LABEL "\"Spell\" Duration: " AUTOID AT (3 PREVBOTTOM) FONT 1
+    FIELD ID DurationFieldID  AT (105 PREVTOP 40 13) MAXCHARS MAX_NUMERIC_BYTES EDITABLE NUMERIC UNDERLINED
+    LABEL "(Default duration for cont. effects.)" AUTOID AT (3 PREVBOTTOM)
+    CHECKBOX "" ID PlayerCharacterCBID  AT (3 PREVBOTTOM AUTO AUTO) ENABLED
+    LABEL "Player Character" AUTOID AT (PREVRIGHT PREVTOP) FONT 1
+    CHECKBOX "Delaying" ID DelayingCBID AT (3 PREVBOTTOM AUTO AUTO) DISABLED
+    CHECKBOX "Readied" ID ReadiedCBID AT (PREVRIGHT PREVTOP AUTO AUTO) DISABLED
+    CHECKBOX "Taking Readied Action" ID TakingReadiedCBID AT (3 PREVBOTTOM AUTO AUTO) DISABLED
+    CHECKBOX "Aware" AwareCBID AT (PREVRIGHT PREVTOP AUTO AUTO) DISABLED
+    BUTTON "OK" ID DoneID  AT (3 PREVBOTTOM+3 AUTO AUTO) FONT 0
+        BUTTON "Delete" ID DeleteID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO)
+BUTTON "Cancel" ID CancelID  AT (PREVRIGHT+3 PREVTOP AUTO AUTO) FONT 0
+
+GRAFFITISTATEINDICATOR AT (147 BOTTOM@PREVBOTTOM)
+
+END
+
+ALERT ID InvalidModifierID
+INFORMATION
+BEGIN
+     TITLE "Invalid Modifier"
+     MESSAGE "Invalid initiative modifier entered. Please enter only positive or negative integer."
+     BUTTONS "OK"
+END
+
+ALERT ID VerifyDeleteAlertID
+CONFIRMATION
+BEGIN
+     TITLE "Verify Delete"
+     MESSAGE "Are you sure you want to delete this item from the database? This can not be undone."
+     BUTTONS "Delete" "Cancel"
+END
+
+ALERT ID SpellNumberAlertID
+INFORMATION
+BEGIN
+     TITLE "Invalid Spell Number"
+     MESSAGE "You must enter a spell number between 0 and 255."
+     BUTTONS "OK"
+END
+
+ALERT ID DefaultDurationAlertID
+INFORMATION
+BEGIN
+     TITLE "Invalid Default Duration"
+     MESSAGE "You must enter a default spell duration between 0 and 255."
+     BUTTONS "OK"
+END
+
+STRING ID EditCharHelpString FILE "EditCharHelp.txt"
+
+STRING ID DefaultCharNameStringID  "\'s "
