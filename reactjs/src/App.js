@@ -3,6 +3,7 @@
 //
 // Copyright 2017, Peter Mikelsons
 //
+import update from 'immutability-helper';
 import React, { Component } from 'react';
 import './App.css';
 
@@ -29,40 +30,39 @@ class App extends Component {
     addPerformer(e) {
         // Clicking anywhere unselects, but we want to select new Performer
         e.stopPropagation();
-        var performers = this.state.performers;
         var performer = {
             name: "new character",
+            isActive: false,
             id: this.state.nextId
         };
-        performers.push(performer);
         // Add new guy, select it, and update the ID counter.
-        this.setState(prevState => ({
-            performers,
-            selectedPerformer: performer,
-            selectedPerformerName: performer.name,
-            nextId: prevState.nextId + 1
+        this.setState(update(this.state, {
+            performers: {$push: [performer]},
+            selectedPerformer: {$set: performer},
+            selectedPerformerName: {$set: performer.name},
+            nextId: {$apply: nextId => nextId + 1}
         }));
     }
     unselectPerformer() {
-        this.setState(prevState => ({
+        this.setState({
             selectedPerformerName: "",
             selectedPerformer: undefined
-        }));
+        });
     }
     handleSelectedPerformerNameInputChange(event) {
         var name = event.target.value;
-        var performer = {
-            name,
-            id: this.state.selectedPerformer.id
-        };
-        var performers = this.state.performers.map(
-            p => p === this.state.selectedPerformer ? performer : p
-        );
-        this.setState({
-            performers,
-            selectedPerformer: performer,
-            selectedPerformerName: name
-        });
+        var index = this.state.performers.indexOf(this.state.selectedPerformer);
+        if (index < 0) {
+            return;
+        }
+        var updatedPerformer = update(this.state.selectedPerformer, {
+            name: {$set: name}
+        })
+        this.setState(update(this.state, {
+            performers: {$splice: [[index, 1, updatedPerformer]]},
+            selectedPerformer: {$set: updatedPerformer},
+            selectedPerformerName: {$set: name}
+        }));
     }
     stopEventPropagation(e) {
         e.stopPropagation();
@@ -72,20 +72,42 @@ class App extends Component {
         return function(e) {
             // Clicking anywhere unselects, but we want to select performer
             e && e.stopPropagation();
-            context.setState(prevState => ({
+            context.setState({
                 selectedPerformer: performer,
                 selectedPerformerName: performer.name
-            }));
+            });
         };
+    }
+    getFunctionToSetPerformerIsActive(context, performer) {
+        return function(e) {
+            var index = context.state.performers.indexOf(performer);
+            if (index < 0) {
+                return;
+            }
+            var updatedPerformer = update(performer, {
+                isActive: {$set: event.target.value}
+            })
+            var change = {
+                performers: {$splice: [[index, 1, updatedPerformer]]}
+            };
+            if (context.state.selectedPerformer === performer) {
+                change.selectedPerformer = {$set: updatedPerformer};
+            }
+            context.setState(update(context.state, change));
+        }
     }
     // should be called with context=this
     getFunctionToRemovePerformer(context, performer) {
         return function(e) {
-            context.setState(prevState => ({
-                performers: prevState.performers.filter(p => p !== performer)
+            var index = context.state.performers.indexOf(performer);
+            if (index < 0) {
+                return;
+            }
+            context.setState(update(context.state, {
+                performers: {$splice: [[index, 1]]}
             }), function() {
                 // Don't leave a deleted Performer as selected.
-                if (performer === this.state.selectedPerformer) {
+                if (performer === context.state.selectedPerformer) {
                     context.unselectPerformer();
                 }
             });
@@ -94,6 +116,7 @@ class App extends Component {
     render() {
         const performerRows = this.state.performers.map(p => (
             <tr key={p.id} onClick={this.getFunctionToSelectPerformer(this, p)}>
+                <td><input type="checkbox" value={p.isActive} onChange={this.getFunctionToSetPerformerIsActive(this, p)} /></td>
                 <td>{p.name}</td>
                 <td><button onClick={this.getFunctionToRemovePerformer(this, p)}>Remove</button></td>
             </tr>
@@ -106,6 +129,7 @@ class App extends Component {
             {performerRows.length > 0 && <table>
                 <tbody>
                     <tr>
+                        <th title="Is or should be in current combat">Active?</th>
                         <th>Name</th>
                     </tr>
                     {performerRows}
