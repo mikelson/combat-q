@@ -11,11 +11,23 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.addPerformer = this.addPerformer.bind(this);
-        this.unselectPerformer = this.unselectPerformer.bind(this);
-        this.handleSelectedPerformerNameInputChange = this.handleSelectedPerformerNameInputChange.bind(this);
+        var methodsToBind = [
+            'addPerformer',
+            'unselectPerformer',
+            'handleSelectedPerformerNameInputChange',
+            'getPerformersInCombat',
+            'isActive',
+            'startCombat',
+            'stopCombat',
+        ];
+        for (var index in methodsToBind) {
+            var method = methodsToBind[index];
+            this[method] = this[method].bind(this);
+        }
 
         this.state = {
+            // General state of combat: null - not in combat, 0 - getting initial rolls, 1+ running combat
+            round: null,
             // Counter used to generate unique id for each Performer
             nextId: 1,
             // Collection of all "Performer" instances - i.e. PCs, NPCs, monster, or spells
@@ -49,12 +61,12 @@ class App extends Component {
             selectedPerformer: undefined
         });
     }
-    handleSelectedPerformerNameInputChange(event) {
-        var name = event.target.value;
+    handleSelectedPerformerNameInputChange(e) {
         var index = this.state.performers.indexOf(this.state.selectedPerformer);
         if (index < 0) {
             return;
         }
+        var name = e.target.value;
         var updatedPerformer = update(this.state.selectedPerformer, {
             name: {$set: name}
         })
@@ -85,7 +97,7 @@ class App extends Component {
                 return;
             }
             var updatedPerformer = update(performer, {
-                isActive: {$set: event.target.value}
+                isActive: {$set: e.target.checked}
             })
             var change = {
                 performers: {$splice: [[index, 1, updatedPerformer]]}
@@ -113,41 +125,116 @@ class App extends Component {
             });
         }; 
     }
+    getPerformersInCombat() {
+        return this.state.performers.filter(p => p.isActive && typeof p.initiative === 'number');
+    }
+    isActive() {
+        return this.state.performers && this.getPerformersInCombat().length > 0;
+    }
+    startCombat() {
+        this.setState({round: 0});
+    }
+    stopCombat() {
+        this.setState(prevState => ({
+            round: null,
+            performers: prevState.performers.map(p => update(p, {
+                initiative: {$set: null}
+            }))
+        }));
+    }
+    getPerformerNeedingInitiative() {
+        return this.state.performers.find(p => p.isActive && typeof p.initiative !== 'number');
+    }
+    getFunctionToSetNeededInitiative(context, i) {
+        return function(e) {
+            var performer = context.getPerformerNeedingInitiative();
+            var index = context.state.performers.indexOf(performer);
+            if (index < 0) {
+                return;
+            }
+            var updatedPerformer = update(performer, {
+                initiative: {$set: i}
+            })
+            var change = {
+                performers: {$splice: [[index, 1, updatedPerformer]]}
+            };
+            if (context.state.selectedPerformer === performer) {
+                change.selectedPerformer = {$set: updatedPerformer};
+            }
+            context.setState(update(context.state, change), function() {
+                if (context.isActive() && !context.getPerformerNeedingInitiative() && context.state.round === 0) {
+                    context.setState({round: 1});
+                    // TODO make queue
+                }
+            });
+        }
+    }
     render() {
+        // One row per Performer
         const performerRows = this.state.performers.map(p => (
             <tr key={p.id} onClick={this.getFunctionToSelectPerformer(this, p)}>
-                <td><input type="checkbox" value={p.isActive} onChange={this.getFunctionToSetPerformerIsActive(this, p)} /></td>
+                <td>
+                    <input type="checkbox" checked={p.isActive}
+                        onChange={this.getFunctionToSetPerformerIsActive(this, p)} />
+                </td>
                 <td>{p.name}</td>
-                <td><button onClick={this.getFunctionToRemovePerformer(this, p)}>Remove</button></td>
+                <td>{typeof p.initiative === 'number' ? p.initiative : "-"}</td>
+                <td>
+                    <button onClick={this.getFunctionToRemovePerformer(this, p)}>Remove</button>
+                </td>
             </tr>
         ));
+        // Possible D20 die rolls
+        const rolls = Array.from(new Array(20), (x,i) => i + 1).map(i => (
+            <button key={i} onClick={this.getFunctionToSetNeededInitiative(this, i)}>{i}</button>
+        ));
         return (
-        <div className="App" onClick={this.unselectPerformer}>
-            <div className="App-header">
-                <h2>Combat-Q Overview</h2>
+            <div className="App" onClick={this.unselectPerformer}>
+                <div className="App-header">
+                    <h2>Combat-Q Overview</h2>
+                </div>
+                {this.state.round > 0 &&
+                    <div>Round: {this.state.round}</div>
+                }
+                {performerRows.length > 0 &&
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th title="Is or should be in current combat">Active?</th>
+                                <th>Name</th>
+                                <th>Initiative</th>
+                            </tr>
+                            {performerRows}
+                        </tbody>
+                    </table>
+                }
+                <button onClick={this.addPerformer}>Add</button>
+                {this.isActive() ?
+                    <button title="End the current combat" onClick={this.stopCombat}>Stop</button> :
+                    <button title="Begin a new combat" onClick={this.startCombat}>Start</button>
+                }
+                {this.state.selectedPerformer && 
+                    <div>
+                        <span name="selName">Name:</span>
+                        <input type="text" autoFocus
+                            value={this.state.selectedPerformerName}
+                            onChange={this.handleSelectedPerformerNameInputChange}
+                            // Clicking anywhere unselects, but we want to preserve current selection.
+                            onClick={this.stopEventPropagation}
+                            />
+                    </div>
+                }
+                {this.state.round !== null && this.getPerformerNeedingInitiative() &&
+                    <div>
+                        <div>
+                            Select an initiative roll for: {this.getPerformerNeedingInitiative().name}
+                        </div>
+                        {rolls}
+                    </div>
+                }
             </div>
-            {performerRows.length > 0 && <table>
-                <tbody>
-                    <tr>
-                        <th title="Is or should be in current combat">Active?</th>
-                        <th>Name</th>
-                    </tr>
-                    {performerRows}
-                </tbody>
-            </table>}
-            <button onClick={this.addPerformer}>Add</button>
-            {this.state.selectedPerformer && <div>
-                <span name="selName">Name:</span>
-                <input type="text" autoFocus
-                    value={this.state.selectedPerformerName}
-                    onChange={this.handleSelectedPerformerNameInputChange}
-                    // Clicking anywhere unselects, but we want to preserve current selection.
-                    onClick={this.stopEventPropagation}
-                    />
-            </div>}
-        </div>
         );
-    }
+    } // end of render()
 }
 
 export default App;
