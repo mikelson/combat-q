@@ -24,8 +24,20 @@ class App extends Component {
             var method = methodsToBind[index];
             this[method] = this[method].bind(this);
         }
-
-        this.state = {
+        // Try to read previous state from local storage
+        var state = localStorage.getItem("state");
+        if (state) {
+            try {
+                state = JSON.parse(state);
+            } catch (e) {
+                console.error(e);
+                console.log(state);
+                state = undefined;
+            }
+        }
+        this.state = state || {
+            // Serialization version, for detecting backwards incompatibilities
+            version: 1,
             // General state of combat: null - not in combat, 0 - getting initial rolls, 1+ running combat
             round: null,
             // Counter used to generate unique id for each Performer
@@ -33,11 +45,23 @@ class App extends Component {
             // Collection of all "Performer" instances - i.e. PCs, NPCs, monster, or spells
             performers: [],
             // Which Performer is "selected" for special editing
-            selectedPerformer: undefined,
+            selectedPerformerId: undefined,
             // TODO extract Performer detail editor component and get rid of selectedPerformerName
             // selectedPerfName is used for a controlled input, which should not be null or undefined
             selectedPerformerName: ""
         };
+    }
+    setState(nextState, callback) {
+        super.setState(nextState, function() {
+            callback && callback();
+            try {
+                var json = JSON.stringify(this.state);
+                console.log(json);
+                localStorage.setItem("state", json);
+            } catch (e) {
+                console.error(e);
+            }
+        });
     }
     addPerformer(e) {
         // Clicking anywhere unselects, but we want to select new Performer
@@ -50,7 +74,7 @@ class App extends Component {
         // Add new guy, select it, and update the ID counter.
         this.setState(update(this.state, {
             performers: {$push: [performer]},
-            selectedPerformer: {$set: performer},
+            selectedPerformerId: {$set: performer.id},
             selectedPerformerName: {$set: performer.name},
             nextId: {$apply: nextId => nextId + 1}
         }));
@@ -58,21 +82,20 @@ class App extends Component {
     unselectPerformer() {
         this.setState({
             selectedPerformerName: "",
-            selectedPerformer: undefined
+            selectedPerformerId: undefined
         });
     }
     handleSelectedPerformerNameInputChange(e) {
-        var index = this.state.performers.indexOf(this.state.selectedPerformer);
+        var index = this.state.performers.findIndex(p => p.id === this.state.selectedPerformerId);
         if (index < 0) {
             return;
         }
         var name = e.target.value;
-        var updatedPerformer = update(this.state.selectedPerformer, {
+        var updatedPerformer = update(this.state.performers[index], {
             name: {$set: name}
         })
         this.setState(update(this.state, {
             performers: {$splice: [[index, 1, updatedPerformer]]},
-            selectedPerformer: {$set: updatedPerformer},
             selectedPerformerName: {$set: name}
         }));
     }
@@ -85,7 +108,7 @@ class App extends Component {
             // Clicking anywhere unselects, but we want to select performer
             e && e.stopPropagation();
             context.setState({
-                selectedPerformer: performer,
+                selectedPerformerId: performer.id,
                 selectedPerformerName: performer.name
             });
         };
@@ -99,13 +122,9 @@ class App extends Component {
             var updatedPerformer = update(performer, {
                 isActive: {$set: e.target.checked}
             })
-            var change = {
+            context.setState(update(context.state, {
                 performers: {$splice: [[index, 1, updatedPerformer]]}
-            };
-            if (context.state.selectedPerformer === performer) {
-                change.selectedPerformer = {$set: updatedPerformer};
-            }
-            context.setState(update(context.state, change));
+            }));
         }
     }
     // should be called with context=this
@@ -119,7 +138,7 @@ class App extends Component {
                 performers: {$splice: [[index, 1]]}
             }), function() {
                 // Don't leave a deleted Performer as selected.
-                if (performer === context.state.selectedPerformer) {
+                if (performer.id === context.state.selectedPerformerId) {
                     context.unselectPerformer();
                 }
             });
@@ -155,13 +174,9 @@ class App extends Component {
             var updatedPerformer = update(performer, {
                 initiative: {$set: i}
             })
-            var change = {
+            context.setState(update(context.state, {
                 performers: {$splice: [[index, 1, updatedPerformer]]}
-            };
-            if (context.state.selectedPerformer === performer) {
-                change.selectedPerformer = {$set: updatedPerformer};
-            }
-            context.setState(update(context.state, change), function() {
+            }), function() {
                 if (context.isActive() && !context.getPerformerNeedingInitiative() && context.state.round === 0) {
                     context.setState({round: 1});
                     // TODO make queue
@@ -213,7 +228,7 @@ class App extends Component {
                     <button title="End the current combat" onClick={this.stopCombat}>Stop</button> :
                     <button title="Begin a new combat" onClick={this.startCombat}>Start</button>
                 }
-                {this.state.selectedPerformer && 
+                {this.state.selectedPerformerId !== undefined && 
                     <div>
                         <span name="selName">Name:</span>
                         <input type="text" autoFocus
