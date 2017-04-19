@@ -156,52 +156,52 @@ END OF OPEN GAME LICENSE
 
 *********************************************************************************/
 import {
-  FrmAlert, 
-  ResolveTieDialog, 
-  ErrFatalDisplayIf, 
-  ErrNonFatalDisplayIf
+    FrmAlert, 
+    ResolveTieDialog, 
+    ErrFatalDisplayIf, 
+    ErrNonFatalDisplayIf
 } from "./Forms";
 import {
-  EncounterEndAlertID, 
-  ReadiedTriggeringAlertID
+    EncounterEndAlertID, 
+    ReadiedTriggeringAlertID
 } from "./Strings";
 import {
-  DmNumRecordsInCategory,
-  queryPerformerP, 
-  getPrev, 
-  setPrev, 
-  getNext, 
-  setNext, 
-  isActive,
-  setActive,
-  getInitiative,
-  setInitiative,
-  getNameHandle,
-  insertBefore,
-  insertAfter,
+    DmNumRecordsInCategory,
+    queryPerformerP, 
+    getPrev, 
+    setPrev, 
+    getNext, 
+    setNext, 
+    isActive,
+    setActive,
+    getInitiative,
+    setInitiative,
+    getNameHandle,
+    insertBefore,
+    insertAfter,
 } from "./PerformerDb";
 import {
-  getModifier,
-  isAware,
-  setAware,
-  isTakingReadied,
-  setTakingReadied,
-  isReadied,
-  setReadied,
-  isDelaying,
-  setDelaying,
+    getModifier,
+    isAware,
+    setAware,
+    isTakingReadied,
+    setTakingReadied,
+    isReadied,
+    setReadied,
+    isDelaying,
+    setDelaying,
 } from "./CharacterDb";
 import {
-  getRemaining,
-  setRemaining,
-  decrement,
-  getNominal,
-  addSummoned,
-  removeSummoned,
-  getOwner
+    getRemaining,
+    setRemaining,
+    decrement,
+    getNominal,
+    addSummoned,
+    removeSummoned,
+    getOwner
 } from "./EffectDb";
-class CombatQ {
 
+class CombatQ {
     /* Combat round.
      * Less than zero - No combat is in progress.
      * Exactly zero - Surprise round of combat in progress.
@@ -654,11 +654,14 @@ class Effect extends Performer {
     deactivate() {
         if ( super.deactivate() ) {  
             // deactivate all summoned performers
-            var p;
             // this forces deactivation, regardless if it would end combat
-            while ( p = removeSummoned(this) ) {
-                p.deactivate();
-            }
+            var p;
+            do {
+                p = removeSummoned(this);
+                if (p) {
+                    p.deactivate();
+                }
+            } while (p);
             return true;
         } else { // This effect was not deactivated
             return false;
@@ -735,12 +738,11 @@ class Effect extends Performer {
        effect summons another creature. The creature would then logically act on the effect's
        initiative, not the character's.*/
     summon(p, followOwner) {
-        var owner;
-
         // Add the performer to the effect's collection of summoned things
         addSummoned(this, p);
         
-        if (followOwner && ( (owner=getOwner(this)) && owner.isActive() )) {
+        const owner = followOwner && getOwner(this);
+        if (owner && owner.isActive()) {
             // Set the summoned thing to follow the owner in the initiative list (if any)
             p.setInitiative( owner.getInitiative() );
             
