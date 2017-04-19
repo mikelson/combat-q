@@ -291,11 +291,6 @@ class CombatQ {
     }
 }
 
-const PerformerTypeEnum = {
-    CHARACTER: 1,
-    EFFECT: 2
-}
-
 class Performer {
     constructor(encounter) {
         this.encounter = encounter;
@@ -432,8 +427,8 @@ class Character extends Performer {
             const initThis = this.getInitiative();
             const initThat = that.getInitiative();
             if (initThis === initThat) {
-            /* Ignore ties with effects - characters always go after effects */
-                if (that.getType()===PerformerTypeEnum.CHARACTER) {
+                /* Ignore ties with effects - characters always go after effects */
+                if (that instanceof Character) {
                     /* Compare initiative modifiers. */
                     const modThis = this.getModifier();
                     const modThat = that.getModifier();
@@ -542,7 +537,7 @@ class Character extends Performer {
          * p was delaying and decides to follow this character, character p will
          * go before character x. Delaying should not allow characters to effectively
          * interrupt other characters. */
-        if (p.getType()===PerformerTypeEnum.CHARACTER) {
+        if (p instanceof Character) {
             if (this.encounter.current.isTakingReadied()) {
                 if (FrmAlert(ReadiedTriggeringAlertID)) {
                     return;
@@ -689,7 +684,7 @@ class Effect extends Performer {
         let p = this.encounter.first;
         do { 
             if (initThis >= p.getInitiative()) { // current performer is slower
-                if (p.getType() === PerformerTypeEnum.CHARACTER) { 
+                if (p instanceof Character) { 
                     // effects always go before characters with same initiative
                     // this means effects with same init will go in order added to list
                     p.insertBefore(this);
