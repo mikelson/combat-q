@@ -202,574 +202,567 @@ import {
 } from "./EffectDb";
 class CombatQ {
 
-/* Combat round.
- * Less than zero - No combat is in progress.
- * Exactly zero - Surprise round of combat in progress.
- * More than zero - Normal combat in progress, value is the current round number
- */
-round: -1;
+    /* Combat round.
+     * Less than zero - No combat is in progress.
+     * Exactly zero - Surprise round of combat in progress.
+     * More than zero - Normal combat in progress, value is the current round number
+     */
+    round: -1;
 
-/* The first performer in the initiative list */
-first: undefined;
-/* The current performe in the combat */
-current: undefined;
+    /* The first performer in the initiative list */
+    first: undefined;
+    /* The current performe in the combat */
+    current: undefined;
 
-/***************************************************************************
- * Utility Functions
- ***************************************************************************/
+    /*
+     * Start a combat. Function uses a database of performers, which has been
+     * sorted to put active characters before other performers.
+     * The argument is the index of the last active character.
+     */
+    EncounterStart(iLastChar) {
+        /* Check for surprise round */
+        let nAware = 0;
+        // iterate over all active characters
+        for (let i=0; i < iLastChar; i++) {
+            let c = this.queryPerformerP(i);
+            if ( c && c.isAware() ) nAware++;
+        }
+        if ( (nAware===0) || (nAware===iLastChar) ) {
+            // no combatants are aware, or all combatants are aware
+            // no surprise round
+            this.round = 1;
+        } else {
+            // surprise round
+            this.round = 0;
+        }
+        // Insert all active performers into initiative list
+        let num = DmNumRecordsInCategory();
+        for (let i=0; i < num; i++) {
+            let p = queryPerformerP(i);
+            if ( p && p.isActive() ) {
+                p.addToInitList();
+            }
+        }
+        // Establish current performer
+        this.current = this.first;
+        // Initialize encounter
+        this.current.prepareToAct();
+    }    
 
-/*
- * Start a combat. Function uses a database of performers, which has been
- * sorted to put active characters before other performers.
- * The argument is the index of the last active character.
- */
-EncounterStart(iLastChar) {
-	/* Check for surprise round */
-	let nAware = 0;
-	// iterate over all active characters
-	for (let i=0; i < iLastChar; i++) {
-		let c = this.queryPerformerP(i);
-		if ( c && c.isAware() ) nAware++;
-	}
-	if ( (nAware===0) || (nAware===iLastChar) ) {
-		// no combatants are aware, or all combatants are aware
-		// no surprise round
-		this.round = 1;
-	} else {
-		// surprise round
-		this.round = 0;
-	}
-	// Insert all active performers into initiative list
-	let num = DmNumRecordsInCategory();
-	for (let i=0; i < num; i++) {
-		let p = queryPerformerP(i);
-		if ( p && p.isActive() ) {
-		 	p.addToInitList();
-		}
-	}
-	// Establish current performer
-	this.current = this.first;
-	// Initialize encounter
-	this.current.prepareToAct();
-}    
+    /* End encounter. */
+    static EncounterEndForce() {
+        // save a vestige of initiative list
+        let p = this.first;
+        // destroy init list - must do before getting to removeFromInitList()
+        this.first = undefined;
+        this.current = undefined;
+        this.round = -1;
+        // deactivate all performers remaining in list
+        let next = p;
+        do {
+            p = next;
+            next = p.getNext();
+            p.deactivate();
+        } while (p !== next);
+        
+        // Activate all player characters in database
+        let num = DmNumRecordsInCategory();
+        for (let i=0; i < num; i++) {
+            let p = queryPerformerP(i);
+            if ( p && p.isPC() ) {
+                p.activate();
+            }
+        }   
+        // Controller logic should do this: FrmGotoForm(OverviewFormID);
+    }
 
-/* End encounter. */
-static EncounterEndForce() {
-	// save a vestige of initiative list
-	let p = this.first;
-	// destroy init list - must do before getting to removeFromInitList()
-	this.first = undefined;
-	this.current = undefined;
-	this.round = -1;
-	// deactivate all performers remaining in list
-	let next = p;
-	do {
-		p = next;
-		next = p.getNext();
-		p.deactivate();
-	} while (p !== next);
-	
-	// Activate all player characters in database
-	let num = DmNumRecordsInCategory();
-	for (let i=0; i < num; i++) {
-		let p = queryPerformerP(i);
-		if ( p && p.isPC() ) {
-		 	p.activate();
-		}
-	}	
-	// Controller logic should do this: FrmGotoForm(OverviewFormID);
-}
-
-/* End encounter, but with a warning to user.
-   Returns true if user accepted warning and combat ended. */
-EncounterEnd() {
-	// verify that combat is in progress
-	if (this.round < 0) return true;
-	// display alert to verify ending of encounter
-	let result = FrmAlert(EncounterEndAlertID);
-	if ( result ) {// first button ("End") not pressed
-		return false;
-	}
-	this.EncounterEndForce();
-	return true;
-}
+    /* End encounter, but with a warning to user.
+       Returns true if user accepted warning and combat ended. */
+    EncounterEnd() {
+        // verify that combat is in progress
+        if (this.round < 0) return true;
+        // display alert to verify ending of encounter
+        let result = FrmAlert(EncounterEndAlertID);
+        if ( result ) {// first button ("End") not pressed
+            return false;
+        }
+        this.EncounterEndForce();
+        return true;
+    }
 }
 
 let PerformerTypeEnum = {
-  CHARACTER: 1,
-  EFFECT: 2
+    CHARACTER: 1,
+    EFFECT: 2
 }
 
 class Performer {
-constructor(encounter) {
-  this.encounter = encounter;
-}
+    constructor(encounter) {
+        this.encounter = encounter;
+    }
 
-getNext() {
-  return getNext(this);
-}
+    getNext() {
+        return getNext(this);
+    }
 
-isActive() {
-  return isActive(this);
-}
+    isActive() {
+        return isActive(this);
+    }
 
-setActive(value) {
-  setActive(this, value);
-}
+    setActive(value) {
+        setActive(this, value);
+    }
 
-getInitiative() {
-  return getInitiative(this);
-}
+    getInitiative() {
+        return getInitiative(this);
+    }
 
-setInitiative(value) {
-  setInitiative(this, value);
-}
+    setInitiative(value) {
+        setInitiative(this, value);
+    }
 
-getModifier() {
-  return getModifier(this);
-}
+    getModifier() {
+        return getModifier(this);
+    }
 
-insertBefore(p) {
-  insertBefore(this, p);
-}
+    insertBefore(p) {
+        insertBefore(this, p);
+    }
 
-insertAfter(p) {
-  insertAfter(this, p);
-}
-/*
- * This method removes a performer from the initiative list
- * Returns true if the performer is no longer in list.
- */
-removeFromInitList(){
-	let leader = getPrev();
-	let follower = this.getNext();
-	if ( (leader===this) && (follower===this) ) { // not in or last performer in list
-		if ( !this.encounter.first || !this.encounter.current ) { // there is no list - no need to do anything
-			return true;
-		} else { // only performer in list - end combat
-			return this.encounter.EncounterEnd();
-		}			
-	}
-	ErrFatalDisplayIf( (leader===this) || (follower===this) 
-		|| !leader || !follower, "Corrupt initiative list.");
-	/* Isolate this performer from the initiative list. */
-	// set next to this
-	setNext(this, this);
-	// set previous to this 
-	setPrev(this, this);
-	/* Close the hole in the initiative list.*/
-	// set leader's next to follower
-	if (leader) setNext(leader, follower);
-	// set follower's previous to leader
-	if (follower) setPrev(follower, leader);
-	// If removing the first performer in init list, make the next one first.
-	if (this === this.encounter.first) {
-		this.encounter.first = follower;
-	}
-	// If removing the current performer, make the next one current.
-	if (this === this.encounter.current) {
-		this.encounter.current = follower;
-	}
-	return true;
-}
+    insertAfter(p) {
+        insertAfter(this, p);
+    }
+    /*
+     * This method removes a performer from the initiative list
+     * Returns true if the performer is no longer in list.
+     */
+    removeFromInitList(){
+        let leader = getPrev();
+        let follower = this.getNext();
+        if ( (leader===this) && (follower===this) ) { // not in or last performer in list
+            if ( !this.encounter.first || !this.encounter.current ) { // there is no list - no need to do anything
+                return true;
+            } else { // only performer in list - end combat
+                return this.encounter.EncounterEnd();
+            }           
+        }
+        ErrFatalDisplayIf( (leader===this) || (follower===this) 
+            || !leader || !follower, "Corrupt initiative list.");
+        /* Isolate this performer from the initiative list. */
+        // set next to this
+        setNext(this, this);
+        // set previous to this 
+        setPrev(this, this);
+        /* Close the hole in the initiative list.*/
+        // set leader's next to follower
+        if (leader) setNext(leader, follower);
+        // set follower's previous to leader
+        if (follower) setPrev(follower, leader);
+        // If removing the first performer in init list, make the next one first.
+        if (this === this.encounter.first) {
+            this.encounter.first = follower;
+        }
+        // If removing the current performer, make the next one current.
+        if (this === this.encounter.current) {
+            this.encounter.current = follower;
+        }
+        return true;
+    }
 
-/* Prepare to add this performer to the initiative list. */
-activate(){
-	// set active flag
-	setActive(true);
+    /* Prepare to add this performer to the initiative list. */
+    activate(){
+        // set active flag
+        setActive(true);
 
-	if ( this.encounter.round >= 0 ) { // combat in progress
-		this.addToInitList();
-	}
-}
+        if ( this.encounter.round >= 0 ) { // combat in progress
+            this.addToInitList();
+        }
+    }
 
-/* Return false if performer is last on list and user declines to end encounter */
-deactivate(){
-	if (this.isActive() === true) {// removing inactive performer from list might end encounter
-    	if ( this.removeFromInitList() ) {
-			// unset active flag
-    		this.setActive(false);
-    		return true;
-    	} else { // failed to deactivate
-			return false;
-		}
-	} else { // inactive performer automatically deactivated
-		return true;
-	}
-}
+    /* Return false if performer is last on list and user declines to end encounter */
+    deactivate(){
+        if (this.isActive() === true) {// removing inactive performer from list might end encounter
+            if ( this.removeFromInitList() ) {
+                // unset active flag
+                this.setActive(false);
+                return true;
+            } else { // failed to deactivate
+                return false;
+            }
+        } else { // inactive performer automatically deactivated
+            return true;
+        }
+    }
 
-/*
- * Remove this performer from the initiative list and pass control on to next performer.
- */
-die() {
-	let nextOld = this.getNext();
-	if ( this === nextOld  || !nextOld ) { // last in init list or corrupt list
-		this.encounter.EncounterEnd();
-	} else {
-		if (nextOld === this.encounter.first) this.encounter.round++;
-		this.deactivate();
-		this.encounter.current = nextOld;
-		this.encounter.current.prepareToAct();
-		// Controller logic should do this: FrmGotoForm(PlayFormID);
-	}
-}
+    /*
+     * Remove this performer from the initiative list and pass control on to next performer.
+     */
+    die() {
+        let nextOld = this.getNext();
+        if ( this === nextOld  || !nextOld ) { // last in init list or corrupt list
+            this.encounter.EncounterEnd();
+        } else {
+            if (nextOld === this.encounter.first) this.encounter.round++;
+            this.deactivate();
+            this.encounter.current = nextOld;
+            this.encounter.current.prepareToAct();
+            // Controller logic should do this: FrmGotoForm(PlayFormID);
+        }
+    }
 } // end of Performer class
 
 class Character extends Performer {
 
-// Set initiative value to roll plus modifier
-setInitiativeRoll(roll) {
-	setInitiative(roll + getModifier() );
-}
-
-// Insert performer into initiative list at appropriate location
-addToInitList(){
-	if (!this.encounter.first) { // list is empty
-		// make this the first performer
-		this.encounter.first = this;
-		return;
-	}
-	/* Start at begining of initiative list. Look for first performer
-	   with lower initiative, and insert this character before it. */
-	let that = this.encounter.first;
-	do {
-		let initThis = this.getInitiative();
-        let initThat = that.getInitiative();
-        if (initThis === initThat) {
-        /* Ignore ties with effects - characters always go after effects */
-        	if (that.getType()===PerformerTypeEnum.CHARACTER) {
-				/* Compare initiative modifiers. */
-				let modThis = this.getModifier();
-				let modThat = that.getModifier();
-				if (modThis === modThat) {
-    		        // Display Resolve Tie Confirmation
-       				let nameThis = getNameHandle(this);
-       				let nameThat = getNameHandle(that);
-    				let result = ResolveTieDialog(nameThat, nameThis);
-            		if (result === 1) { // this character is faster than that
-            			if (that===this.encounter.first) this.encounter.first = this;
-    					// insert this character before the slower Performer
-            			that.insertBefore(this); 
-            			return;
-       				}
-				} else if (modThis > modThat) { // that performer is slower
-					if (that===this.encounter.first) this.encounter.first = this;
-		        	that.insertBefore(this);
-	    		    return;
-				} // end of modifier comparison condition
-			} // end of CHARACTER conditional
-        } else if (initThis > initThat) { // that performer is slower
-			if (that === this.encounter.first) this.encounter.first = this;
-        	that.insertBefore(this);
-	        return;
-        } // end of initiative comparison conditional
-		that = that.getNext();
-	} while (that !== this.encounter.first);
-	// Make this character last
-	this.encounter.first.insertBefore(this);
-}
-
-// Return true if the character only gets a Standard or Move action this round
-hasStandardAction() {
-	// All actions are standard or move actions during surprise round
-	if (this.encounter.round===0) return true;
-	// If character is taking a readied action, it must be a standard or move action
-	return isTakingReadied(this);
-}
-
-// Prepare performer to take a turn
-prepareToAct() {
-    if ( (this.encounter.round===0) && (isAware(this) === false ) ) {
-	    // character surprised on surprise round!
-    	setAware(this, true); // make it aware
-	    this.act(); // Skip the current character
+    // Set initiative value to roll plus modifier
+    setInitiativeRoll(roll) {
+        setInitiative(roll + getModifier() );
     }
-    // if character was delaying, it no longer is
-    this.setDelaying(false);
-    // can't hold readied action any longer either
-    this.setReadied(false);
-}
 
-// Have performer pass the current pointer to the next performer
-act() {
-	this.setTakingReadied(false);
-	this.encounter.current = this.getNext();
-	if (this.encounter.current === this.encounter.first) { // Start of the list - new round
-		this.encounter.round++;
-	}
-	this.encounter.current.prepareToAct();
-}
+    // Insert performer into initiative list at appropriate location
+    addToInitList(){
+        if (!this.encounter.first) { // list is empty
+            // make this the first performer
+            this.encounter.first = this;
+            return;
+        }
+        /* Start at begining of initiative list. Look for first performer
+           with lower initiative, and insert this character before it. */
+        let that = this.encounter.first;
+        do {
+            let initThis = this.getInitiative();
+            let initThat = that.getInitiative();
+            if (initThis === initThat) {
+            /* Ignore ties with effects - characters always go after effects */
+                if (that.getType()===PerformerTypeEnum.CHARACTER) {
+                    /* Compare initiative modifiers. */
+                    let modThis = this.getModifier();
+                    let modThat = that.getModifier();
+                    if (modThis === modThat) {
+                        // Display Resolve Tie Confirmation
+                        let nameThis = getNameHandle(this);
+                        let nameThat = getNameHandle(that);
+                        let result = ResolveTieDialog(nameThat, nameThis);
+                        if (result === 1) { // this character is faster than that
+                            if (that===this.encounter.first) this.encounter.first = this;
+                            // insert this character before the slower Performer
+                            that.insertBefore(this); 
+                            return;
+                        }
+                    } else if (modThis > modThat) { // that performer is slower
+                        if (that===this.encounter.first) this.encounter.first = this;
+                        that.insertBefore(this);
+                        return;
+                    } // end of modifier comparison condition
+                } // end of CHARACTER conditional
+            } else if (initThis > initThat) { // that performer is slower
+                if (that === this.encounter.first) this.encounter.first = this;
+                that.insertBefore(this);
+                return;
+            } // end of initiative comparison conditional
+            that = that.getNext();
+        } while (that !== this.encounter.first);
+        // Make this character last
+        this.encounter.first.insertBefore(this);
+    }
 
-/*
- * Take steps necessary to move character to new, later initiative.
- * If initNew is not a number, just leave it unspecified and continue.
- */
-delay(initNew) {
-  if (typeof initNew !== "number") {
-    setDelaying(this, true);
-    // go on to next character
-    this.act();
-    return;
-  }
-	// Verify that this is a valid value
-	if (initNew > this.getDelayInitMax())
-		return;
-	let nextOld = this.getNext();
-	let firstOld = this.encounter.first;
-    this.setInitiative(initNew);
-	setDelaying(this, true);
-	if (this !== nextOld) {// not only performer in initiative list
-		// take out of initiative list
-		this.deactivate();
-		// put character back into initiative list
-		this.activate();
-	}
-	// go to old next character (if order changed)
-	let nextNew = this.getNext();
-	if ( (nextOld===nextNew) && (firstOld===this.encounter.first) ) { // no change to init list
-		this.encounter.current = this; // let this performer go again with new initiative
-	} else { // order changed
-		this.encounter.current = nextOld; // continue with next performer
-	}
-	this.encounter.current.prepareToAct();
-}
+    // Return true if the character only gets a Standard or Move action this round
+    hasStandardAction() {
+        // All actions are standard or move actions during surprise round
+        if (this.encounter.round===0) return true;
+        // If character is taking a readied action, it must be a standard or move action
+        return isTakingReadied(this);
+    }
 
-/*
- * Take delayed action after the given performer.
- */
-delayTrigger(p) {
-	// sanity check...
-	ErrNonFatalDisplayIf(isDelaying(this)===false,
-		"Triggering delayed action for non-delaying character!");
-	/* Warn user about potentially abusive action: Suppose this character
-	 * is taking a readied action to interrupt character x. If character
-	 * p was delaying and decides to follow this character, character p will
-	 * go before character x. Delaying should not allow characters to effectively
-	 * interrupt other characters. */
-	if (p.getType()===PerformerTypeEnum.CHARACTER) {
-		if (this.encounter.current.isTakingReadied()) {
-			if (FrmAlert(ReadiedTriggeringAlertID)) {
-				return;
-			}
-		}
-	}
-	// prepare for moving to new list location
-	/* Assume that this is not the only performer in initiative list,
-	   for if it was it could not have been selected by trigger form. */
-    this.removeFromInitList();
-	// reset initiative value
-    this.setInitiative(p.getInitiative());
-	// move to new list location
-    p.insertAfter(this);
-	// clear delaying status
-    setDelaying(false);
-}
+    // Prepare performer to take a turn
+    prepareToAct() {
+        if ( (this.encounter.round===0) && (isAware(this) === false ) ) {
+            // character surprised on surprise round!
+            setAware(this, true); // make it aware
+            this.act(); // Skip the current character
+        }
+        // if character was delaying, it no longer is
+        this.setDelaying(false);
+        // can't hold readied action any longer either
+        this.setReadied(false);
+    }
 
-// Return the highest initiative the character may delay to
-getDelayInitMax() {
-	// maximum delaying initiative is current initiative minus one
-	return getInitiative() - 1;
-}
+    // Have performer pass the current pointer to the next performer
+    act() {
+        this.setTakingReadied(false);
+        this.encounter.current = this.getNext();
+        if (this.encounter.current === this.encounter.first) { // Start of the list - new round
+            this.encounter.round++;
+        }
+        this.encounter.current.prepareToAct();
+    }
 
-/*
- * Have character take Ready action: go into ready state and continue with next character
- */
-ready() {
-	setReadied(this, true);
-	this.act();
-}
+    /*
+     * Take steps necessary to move character to new, later initiative.
+     * If initNew is not a number, just leave it unspecified and continue.
+     */
+    delay(initNew) {
+        if (typeof initNew !== "number") {
+            setDelaying(this, true);
+            // go on to next character
+            this.act();
+            return;
+        }
+        // Verify that this is a valid value
+        if (initNew > this.getDelayInitMax())
+            return;
+        let nextOld = this.getNext();
+        let firstOld = this.encounter.first;
+        this.setInitiative(initNew);
+        setDelaying(this, true);
+        if (this !== nextOld) {// not only performer in initiative list
+            // take out of initiative list
+            this.deactivate();
+            // put character back into initiative list
+            this.activate();
+        }
+        // go to old next character (if order changed)
+        let nextNew = this.getNext();
+        if ( (nextOld===nextNew) && (firstOld===this.encounter.first) ) { // no change to init list
+            this.encounter.current = this; // let this performer go again with new initiative
+        } else { // order changed
+            this.encounter.current = nextOld; // continue with next performer
+        }
+        this.encounter.current.prepareToAct();
+    }
 
-/*
- * Take readied action before the given performer.
- */
-interrupt(p) {
-	// sanity check
-	ErrNonFatalDisplayIf(!isReadied(this),"Interrupting with non-readied character!");
-	// prepare for moving to new list location
-	/* Assume that this is not the only performer in initiative list,
-	   for if it was it could not have been selected by trigger form. */
-	this.removeFromInitList();
-	// reset initiative value
-	this.setInitiative(p.getInitiative());
-	// move to new list location
-	p.insertBefore(this);
-	// clear readied status
-	setReadied(this, false);
-	// indicate that this is a readied action
-	setTakingReadied(this, true);
-	// move interrupter to start of list, if needed
-	if (this.encounter.current === this.encounter.first) {
-		this.encounter.first = this;
-	}
-	// make interrupter current
-	this.encounter.current = this;
-}
+    /*
+     * Take delayed action after the given performer.
+     */
+    delayTrigger(p) {
+        // sanity check...
+        ErrNonFatalDisplayIf(isDelaying(this)===false,
+            "Triggering delayed action for non-delaying character!");
+        /* Warn user about potentially abusive action: Suppose this character
+         * is taking a readied action to interrupt character x. If character
+         * p was delaying and decides to follow this character, character p will
+         * go before character x. Delaying should not allow characters to effectively
+         * interrupt other characters. */
+        if (p.getType()===PerformerTypeEnum.CHARACTER) {
+            if (this.encounter.current.isTakingReadied()) {
+                if (FrmAlert(ReadiedTriggeringAlertID)) {
+                    return;
+                }
+            }
+        }
+        // prepare for moving to new list location
+        /* Assume that this is not the only performer in initiative list,
+           for if it was it could not have been selected by trigger form. */
+        this.removeFromInitList();
+        // reset initiative value
+        this.setInitiative(p.getInitiative());
+        // move to new list location
+        p.insertAfter(this);
+        // clear delaying status
+        setDelaying(false);
+    }
 
-/*
- * Change character's initiative to 20+bonus. This action is not present
- * in the Revised (v3.5) SRD, but it retained for players who want to
- * use it as a house-rule.
- */
-refocus() {
-	if (isTakingReadied(this)) {
-		// can't Refocus on Readied action... would allow a move+Refocus
-		return;
-	}
-	let oldNext = this.getNext();
-	// Is this the last performer in the initiative list?
-	let wasLast = (oldNext===this.encounter.first);
-	// Is this the current performer?
-	let wasCurrent = (this===this.encounter.current);
-	// reset initiative
-	this.setInitiative( 20 + getModifier() );
-	if (this !== oldNext) { // This is not the only performer in initiative list
-		// remove from list
-		this.deactivate();
-		// return to list
-		this.activate();
-	}
-	/* If for some reason we are refocusing non-current character, 
-	   then no more changes needed. */
-	if (wasCurrent===false) {
-		return;
-	} else if ( wasLast && (this===this.encounter.first) ) {
-	/* If current performer was last, and is now first, 
-	   then it's a new turn and it goes again. */
-		this.encounter.round++;
-		this.encounter.current = this;
-	} else {
-	/* Otherwise go on to old next performer. */
-		this.encounter.current = oldNext;
-	}
-	this.encounter.current.prepareToAct();
-}
+    // Return the highest initiative the character may delay to
+    getDelayInitMax() {
+        // maximum delaying initiative is current initiative minus one
+        return getInitiative() - 1;
+    }
+
+    /*
+     * Have character take Ready action: go into ready state and continue with next character
+     */
+    ready() {
+        setReadied(this, true);
+        this.act();
+    }
+
+    /*
+     * Take readied action before the given performer.
+     */
+    interrupt(p) {
+        // sanity check
+        ErrNonFatalDisplayIf(!isReadied(this),"Interrupting with non-readied character!");
+        // prepare for moving to new list location
+        /* Assume that this is not the only performer in initiative list,
+           for if it was it could not have been selected by trigger form. */
+        this.removeFromInitList();
+        // reset initiative value
+        this.setInitiative(p.getInitiative());
+        // move to new list location
+        p.insertBefore(this);
+        // clear readied status
+        setReadied(this, false);
+        // indicate that this is a readied action
+        setTakingReadied(this, true);
+        // move interrupter to start of list, if needed
+        if (this.encounter.current === this.encounter.first) {
+            this.encounter.first = this;
+        }
+        // make interrupter current
+        this.encounter.current = this;
+    }
+
+    /*
+     * Change character's initiative to 20+bonus. This action is not present
+     * in the Revised (v3.5) SRD, but it retained for players who want to
+     * use it as a house-rule.
+     */
+    refocus() {
+        if (isTakingReadied(this)) {
+            // can't Refocus on Readied action... would allow a move+Refocus
+            return;
+        }
+        let oldNext = this.getNext();
+        // Is this the last performer in the initiative list?
+        let wasLast = (oldNext===this.encounter.first);
+        // Is this the current performer?
+        let wasCurrent = (this===this.encounter.current);
+        // reset initiative
+        this.setInitiative( 20 + getModifier() );
+        if (this !== oldNext) { // This is not the only performer in initiative list
+            // remove from list
+            this.deactivate();
+            // return to list
+            this.activate();
+        }
+        /* If for some reason we are refocusing non-current character, 
+           then no more changes needed. */
+        if (wasCurrent===false) {
+            return;
+        } else if ( wasLast && (this===this.encounter.first) ) {
+        /* If current performer was last, and is now first, 
+           then it's a new turn and it goes again. */
+            this.encounter.round++;
+            this.encounter.current = this;
+        } else {
+        /* Otherwise go on to old next performer. */
+            this.encounter.current = oldNext;
+        }
+        this.encounter.current.prepareToAct();
+    }
 } // end of class Character
 
 class Effect extends Performer {
 
-// Add effect to initiative list
-activate() {
-	// if adding to initiative list before combat, reset the rounds remaining
-	if (this.encounter.round < 0) setRemaining( this, getNominal(this) );
-	super.activate();
-}
+    // Add effect to initiative list
+    activate() {
+        // if adding to initiative list before combat, reset the rounds remaining
+        if (this.encounter.round < 0) setRemaining( this, getNominal(this) );
+        super.activate();
+    }
 
-// Remove effect from initiative list
-deactivate() {
-	if ( super.deactivate() ) {
-	
-    	// deactivate all summoned performers
-    	var p;
-		// this forces deactivation, regardless if it would end combat
-    	while ( p = removeSummoned(this) ) {
-    		p.deactivate();
-    	}
-		
-		return true;
+    // Remove effect from initiative list
+    deactivate() {
+        if ( super.deactivate() ) {  
+            // deactivate all summoned performers
+            var p;
+            // this forces deactivation, regardless if it would end combat
+            while ( p = removeSummoned(this) ) {
+                p.deactivate();
+            }
+            return true;
+        } else { // This effect was not deactivated
+            return false;
+        }
+    }
 
-	} else { // This effect was not deactivated
-		return false;
-	}
-}
+    /* Reduce the number of rounds remaining by one, to minimum of zero. */
+    decrement() {
+        var i = getRemaining(this);
+        if (i > 0) {
+            i--;
+            setRemaining(this, i);
+        }
+    }
 
-/* Reduce the number of rounds remaining by one, to minimum of zero. */
-decrement() {
-	var i = getRemaining(this);
-	if (i > 0) {
-		i--;
-		setRemaining(this, i);
-	}
-}
+    /* "Effects that last a certain number of rounds end just before the same 
+        initiative count that they began on." (SRD) */
+    addToInitList(){
+        if (!this.encounter.first) { // list is empty
+            // make this the first performer
+            this.encounter.first = this;
+            return;
+        }
+        let initThis = this.getInitiative();
+        var p = this.encounter.first;
+        do { 
+            if (initThis >= p.getInitiative()) { // current performer is slower
+                if (p.getType() === PerformerTypeEnum.CHARACTER) { 
+                    // effects always go before characters with same initiative
+                    // this means effects with same init will go in order added to list
+                    p.insertBefore(this);
+                    // update start of initiative list, if necessary
+                    if (p===this.encounter.first) this.encounter.first = this;
+                    // we're done
+                    return;
+                }
+            } // end of initiative comparison conditional
+            p = p.getNext();
+        } while (p !== this.encounter.first);
+        // No characters were slower, make this effect last.
+        this.encounter.first.insertBefore(this);
+    }
 
-/* "Effects that last a certain number of rounds end just before the same 
-    initiative count that they began on." (SRD) */
-addToInitList(){
-	if (!this.encounter.first) { // list is empty
-		// make this the first performer
-		this.encounter.first = this;
-		return;
-	}
-	let initThis = this.getInitiative();
-	var p = this.encounter.first;
-	do { 
-		if (initThis >= p.getInitiative()) { // current performer is slower
-			if (p.getType() === PerformerTypeEnum.CHARACTER) { 
-				// effects always go before characters with same initiative
-				// this means effects with same init will go in order added to list
-				p.insertBefore(this);
-				// update start of initiative list, if necessary
-				if (p===this.encounter.first) this.encounter.first = this;
-				// we're done
-				return;
-			}
-		} // end of initiative comparison conditional
-		p = p.getNext();
-	} while (p !== this.encounter.first);
-	// No characters were slower, make this effect last.
-	this.encounter.first.insertBefore(this);
-}
+    // Prepare performer to take a turn
+    prepareToAct() {
+        decrement(this);
+    }
 
-// Prepare performer to take a turn
-prepareToAct() {
-	decrement(this);
-}
+    /* This effect acts, then makes its next performer the current performer. */
+    act() {
+        let next = this.getNext();
+        if ( getRemaining(this) < 1) {
+            // Effect is done - get rid of it
+            if (next === this) { // only performer in initiative list!
+                this.encounter.EncounterEndForce();
+                return;
+            }
+            this.deactivate();
+        }
+        this.encounter.current = next;
+        if (this.encounter.first === this.encounter.current) this.encounter.round++; // last performer in init list 
+        this.encounter.current.prepareToAct();
+    }
 
-/* This effect acts, then makes its next performer the current performer. */
-act() {
-	let next = this.getNext();
-    if ( getRemaining(this) < 1) {
-        // Effect is done - get rid of it
-		if (next === this) { // only performer in initiative list!
-			this.encounter.EncounterEndForce();
-			return;
-		}
-        this.deactivate();
-	}
-	this.encounter.current = next;
-    if (this.encounter.first === this.encounter.current) this.encounter.round++; // last performer in init list 
-	this.encounter.current.prepareToAct();
-}
+    /* Associate something with an effect and place that something in the initiative list,
+       as appropriate. 
 
-/* Associate something with an effect and place that something in the initiative list,
-   as appropriate. 
+       If followOwner is true, the something will go right after the effect's owner.
+       Otherwise, the something will go right after the effect.
 
-   If followOwner is true, the something will go right after the effect's owner.
-   Otherwise, the something will go right after the effect.
+       Normally, followOwner will be true, and summoned creatures will act immediately 
+       after the character who summoned them. A use case where followOwner is false would
+       be when a character creates an effect, the character changes initiative, and then the
+       effect summons another creature. The creature would then logically act on the effect's
+       initiative, not the character's.*/
+    summon(p, followOwner) {
+        var owner;
 
-   Normally, followOwner will be true, and summoned creatures will act immediately 
-   after the character who summoned them. A use case where followOwner is false would
-   be when a character creates an effect, the character changes initiative, and then the
-   effect summons another creature. The creature would then logically act on the effect's
-   initiative, not the character's.*/
-summon(p, followOwner) {
-	var owner;
+        // Add the performer to the effect's collection of summoned things
+        addSummoned(this, p);
+        
+        if (followOwner && ( (owner=getOwner(this)) && owner.isActive() )) {
+            // Set the summoned thing to follow the owner in the initiative list (if any)
+            p.setInitiative( owner.getInitiative() );
+            
+            if (this.isActive()) { 
+                // only put summoned thing in combat if owner and effect are both in combat
+                p.setActive( true );
+                
+                if (this.encounter.round >= 0) // only put summoned thing in combat if there is a combat underway
+                    owner.insertAfter(p);
+            }
+                
+        } else { // followOwner is false, or there is no owner, or owner is not in combat
 
-	// Add the performer to the effect's collection of summoned things
-	addSummoned(this, p);
-	
-	if (followOwner && ( (owner=getOwner(this)) && owner.isActive() )) {
-		// Set the summoned thing to follow the owner in the initiative list (if any)
-		p.setInitiative( owner.getInitiative() );
-		
-		if (this.isActive()) { 
-			// only put summoned thing in combat if owner and effect are both in combat
-			p.setActive( true );
-			
-			if (this.encounter.round >= 0) // only put summoned thing in combat if there is a combat underway
-				owner.insertAfter(p);
-		}
-			
-	} else { // followOwner is false, or there is no owner, or owner is not in combat
+            // Set the summoned thing to follow the effect in the initiative list (if any)
+            p.setInitiative( this.getInitiative() );
 
-		// Set the summoned thing to follow the effect in the initiative list (if any)
-		p.setInitiative( this.getInitiative() );
+            if (this.isActive()) { // only put summoned thing in combat if effect is in combat
+                p.setActive(true);
 
-		if (this.isActive()) { // only put summoned thing in combat if effect is in combat
-			p.setActive(true);
-
-			if (this.encounter.round >= 0) // only put summoned thing in combat if there is a combat underway
-				this.insertAfter(p);
-		}
-	}
-}
+                if (this.encounter.round >= 0) // only put summoned thing in combat if there is a combat underway
+                    this.insertAfter(p);
+            }
+        }
+    }
 }
