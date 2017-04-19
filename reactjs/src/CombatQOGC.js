@@ -224,7 +224,7 @@ class CombatQ {
         let nAware = 0;
         // iterate over all active characters
         for (let i=0; i < iLastChar; i++) {
-            let c = this.queryPerformerP(i);
+            const c = this.queryPerformerP(i);
             if ( c && c.isAware() ) nAware++;
         }
         if ( (nAware===0) || (nAware===iLastChar) ) {
@@ -236,9 +236,9 @@ class CombatQ {
             this.round = 0;
         }
         // Insert all active performers into initiative list
-        let num = DmNumRecordsInCategory();
+        const num = DmNumRecordsInCategory();
         for (let i=0; i < num; i++) {
-            let p = queryPerformerP(i);
+            const p = queryPerformerP(i);
             if ( p && p.isActive() ) {
                 p.addToInitList();
             }
@@ -266,9 +266,9 @@ class CombatQ {
         } while (p !== next);
         
         // Activate all player characters in database
-        let num = DmNumRecordsInCategory();
+        const num = DmNumRecordsInCategory();
         for (let i=0; i < num; i++) {
-            let p = queryPerformerP(i);
+            const p = queryPerformerP(i);
             if ( p && p.isPC() ) {
                 p.activate();
             }
@@ -282,7 +282,7 @@ class CombatQ {
         // verify that combat is in progress
         if (this.round < 0) return true;
         // display alert to verify ending of encounter
-        let result = FrmAlert(EncounterEndAlertID);
+        const result = FrmAlert(EncounterEndAlertID);
         if ( result ) {// first button ("End") not pressed
             return false;
         }
@@ -291,7 +291,7 @@ class CombatQ {
     }
 }
 
-let PerformerTypeEnum = {
+const PerformerTypeEnum = {
     CHARACTER: 1,
     EFFECT: 2
 }
@@ -337,8 +337,8 @@ class Performer {
      * Returns true if the performer is no longer in list.
      */
     removeFromInitList(){
-        let leader = getPrev();
-        let follower = this.getNext();
+        const leader = getPrev();
+        const follower = this.getNext();
         if ( (leader===this) && (follower===this) ) { // not in or last performer in list
             if ( !this.encounter.first || !this.encounter.current ) { // there is no list - no need to do anything
                 return true;
@@ -398,7 +398,7 @@ class Performer {
      * Remove this performer from the initiative list and pass control on to next performer.
      */
     die() {
-        let nextOld = this.getNext();
+        const nextOld = this.getNext();
         if ( this === nextOld  || !nextOld ) { // last in init list or corrupt list
             this.encounter.EncounterEnd();
         } else {
@@ -429,19 +429,19 @@ class Character extends Performer {
            with lower initiative, and insert this character before it. */
         let that = this.encounter.first;
         do {
-            let initThis = this.getInitiative();
-            let initThat = that.getInitiative();
+            const initThis = this.getInitiative();
+            const initThat = that.getInitiative();
             if (initThis === initThat) {
             /* Ignore ties with effects - characters always go after effects */
                 if (that.getType()===PerformerTypeEnum.CHARACTER) {
                     /* Compare initiative modifiers. */
-                    let modThis = this.getModifier();
-                    let modThat = that.getModifier();
+                    const modThis = this.getModifier();
+                    const modThat = that.getModifier();
                     if (modThis === modThat) {
                         // Display Resolve Tie Confirmation
-                        let nameThis = getNameHandle(this);
-                        let nameThat = getNameHandle(that);
-                        let result = ResolveTieDialog(nameThat, nameThis);
+                        const nameThis = getNameHandle(this);
+                        const nameThat = getNameHandle(that);
+                        const result = ResolveTieDialog(nameThat, nameThis);
                         if (result === 1) { // this character is faster than that
                             if (that===this.encounter.first) this.encounter.first = this;
                             // insert this character before the slower Performer
@@ -510,8 +510,8 @@ class Character extends Performer {
         // Verify that this is a valid value
         if (initNew > this.getDelayInitMax())
             return;
-        let nextOld = this.getNext();
-        let firstOld = this.encounter.first;
+        const nextOld = this.getNext();
+        const firstOld = this.encounter.first;
         this.setInitiative(initNew);
         setDelaying(this, true);
         if (this !== nextOld) {// not only performer in initiative list
@@ -521,7 +521,7 @@ class Character extends Performer {
             this.activate();
         }
         // go to old next character (if order changed)
-        let nextNew = this.getNext();
+        const nextNew = this.getNext();
         if ( (nextOld===nextNew) && (firstOld===this.encounter.first) ) { // no change to init list
             this.encounter.current = this; // let this performer go again with new initiative
         } else { // order changed
@@ -611,11 +611,11 @@ class Character extends Performer {
             // can't Refocus on Readied action... would allow a move+Refocus
             return;
         }
-        let oldNext = this.getNext();
+        const oldNext = this.getNext();
         // Is this the last performer in the initiative list?
-        let wasLast = (oldNext===this.encounter.first);
+        const wasLast = (oldNext===this.encounter.first);
         // Is this the current performer?
-        let wasCurrent = (this===this.encounter.current);
+        const wasCurrent = (this===this.encounter.current);
         // reset initiative
         this.setInitiative( 20 + getModifier() );
         if (this !== oldNext) { // This is not the only performer in initiative list
@@ -655,7 +655,7 @@ class Effect extends Performer {
         if ( super.deactivate() ) {  
             // deactivate all summoned performers
             // this forces deactivation, regardless if it would end combat
-            var p;
+            let p;
             do {
                 p = removeSummoned(this);
                 if (p) {
@@ -670,7 +670,7 @@ class Effect extends Performer {
 
     /* Reduce the number of rounds remaining by one, to minimum of zero. */
     decrement() {
-        var i = getRemaining(this);
+        let i = getRemaining(this);
         if (i > 0) {
             i--;
             setRemaining(this, i);
@@ -685,8 +685,8 @@ class Effect extends Performer {
             this.encounter.first = this;
             return;
         }
-        let initThis = this.getInitiative();
-        var p = this.encounter.first;
+        const initThis = this.getInitiative();
+        let p = this.encounter.first;
         do { 
             if (initThis >= p.getInitiative()) { // current performer is slower
                 if (p.getType() === PerformerTypeEnum.CHARACTER) { 
@@ -712,7 +712,7 @@ class Effect extends Performer {
 
     /* This effect acts, then makes its next performer the current performer. */
     act() {
-        let next = this.getNext();
+        const next = this.getNext();
         if ( getRemaining(this) < 1) {
             // Effect is done - get rid of it
             if (next === this) { // only performer in initiative list!

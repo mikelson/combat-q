@@ -12,7 +12,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        var methodsToBind = [
+        const methodsToBind = [
             'addPerformer',
             'unselectPerformer',
             'handleSelectedPerformerNameInputChange',
@@ -21,12 +21,12 @@ class App extends Component {
             'startCombat',
             'stopCombat',
         ];
-        for (var index in methodsToBind) {
-            var method = methodsToBind[index];
+        for (let index in methodsToBind) {
+            const method = methodsToBind[index];
             this[method] = this[method].bind(this);
         }
         // Try to read previous state from local storage
-        var state = localStorage.getItem("state");
+        let state = localStorage.getItem("state");
         if (state) {
             try {
                 state = JSON.parse(state);
@@ -56,7 +56,7 @@ class App extends Component {
         super.setState(nextState, function() {
             callback && callback();
             try {
-                var json = JSON.stringify(this.state);
+                const json = JSON.stringify(this.state);
                 console.log(json);
                 localStorage.setItem("state", json);
             } catch (e) {
@@ -67,7 +67,7 @@ class App extends Component {
     addPerformer(e) {
         // Clicking anywhere unselects, but we want to select new Performer
         e.stopPropagation();
-        var performer = {
+        const performer = {
             name: "new character",
             isActive: false,
             id: this.state.nextId
@@ -87,12 +87,12 @@ class App extends Component {
         });
     }
     handleSelectedPerformerNameInputChange(e) {
-        var index = this.state.performers.findIndex(p => p.id === this.state.selectedPerformerId);
+        const index = this.state.performers.findIndex(p => p.id === this.state.selectedPerformerId);
         if (index < 0) {
             return;
         }
-        var name = e.target.value;
-        var updatedPerformer = update(this.state.performers[index], {
+        const name = e.target.value;
+        const updatedPerformer = update(this.state.performers[index], {
             name: {$set: name}
         })
         this.setState(update(this.state, {
@@ -116,11 +116,11 @@ class App extends Component {
     }
     getFunctionToSetPerformerIsActive(context, performer) {
         return function(e) {
-            var index = context.state.performers.indexOf(performer);
+            const index = context.state.performers.indexOf(performer);
             if (index < 0) {
                 return;
             }
-            var updatedPerformer = update(performer, {
+            const updatedPerformer = update(performer, {
                 isActive: {$set: e.target.checked}
             })
             context.setState(update(context.state, {
@@ -131,7 +131,7 @@ class App extends Component {
     // should be called with context=this
     getFunctionToRemovePerformer(context, performer) {
         return function(e) {
-            var index = context.state.performers.indexOf(performer);
+            const index = context.state.performers.indexOf(performer);
             if (index < 0) {
                 return;
             }
@@ -167,12 +167,12 @@ class App extends Component {
     }
     getFunctionToSetNeededInitiative(context, i) {
         return function(e) {
-            var performer = context.getPerformerNeedingInitiative();
-            var index = context.state.performers.indexOf(performer);
+            const performer = context.getPerformerNeedingInitiative();
+            const index = context.state.performers.indexOf(performer);
             if (index < 0) {
                 return;
             }
-            var updatedPerformer = update(performer, {
+            const updatedPerformer = update(performer, {
                 initiative: {$set: i}
             })
             context.setState(update(context.state, {
