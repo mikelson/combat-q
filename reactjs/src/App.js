@@ -6,6 +6,7 @@
 import update from 'immutability-helper';
 import React, { Component } from 'react';
 import './App.css';
+import './CombatQOGC.js'
 
 class App extends Component {
     constructor(props) {
