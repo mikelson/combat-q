@@ -1,39 +1,43 @@
-function getModifier() {
-
+function getModifier(character) {
+    return character.modifier;
 }
-function isAware() {
 
+function isAware(character) {
+    return character.isAware;
 }
-function setAware() {
-
+function setAware(character, value) {
+    character.isAware = value;
 }
-function isTakingReadied() {
 
+function isTakingReadied(character) {
+    return character.isTakingReadied;
 }
-function setTakingReadied() {
-
+function setTakingReadied(character, value) {
+    return character.isTakingReadied = value;
 }
-function isReadied() {
 
+function isReadied(character) {
+    return character.isReadied;
 }
-function setReadied() {
-
+function setReadied(character, value) {
+    character.isReadied = value;
 }
-function isDelaying() {
 
+function isDelaying(character) {
+    return character.isDelaying;
 }
-function setDelaying() {
-
+function setDelaying(character, value) {
+    character.isDelaying = value;
 }
 
 export {
-  getModifier,
-  isAware,
-  setAware,
-  isTakingReadied,
-  setTakingReadied,
-  isReadied,
-  setReadied,
-  isDelaying,
-  setDelaying,
+    getModifier,
+    isAware,
+    setAware,
+    isTakingReadied,
+    setTakingReadied,
+    isReadied,
+    setReadied,
+    isDelaying,
+    setDelaying,
 };
