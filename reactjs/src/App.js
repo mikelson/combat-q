@@ -6,13 +6,16 @@
 import update from 'immutability-helper';
 import React, { Component } from 'react';
 import './App.css';
-import './CombatQOGC.js'
+import { EncounterDb } from './EncounterDb.js';
+import { PerformerDb } from './PerformerDb.js';
+import './CombatQOGC.js';
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         const methodsToBind = [
+            'getState',
             'addPerformer',
             'unselectPerformer',
             'handleSelectedPerformerNameInputChange',
@@ -51,6 +54,13 @@ class App extends Component {
             // selectedPerfName is used for a controlled input, which should not be null or undefined
             selectedPerformerName: ""
         };
+        EncounterDb.setGetState(this.getState);
+        EncounterDb.setSetState(this.setState);
+        PerformerDb.setGetState(this.getState);
+        PerformerDb.setSetState(this.setState);
+    }
+    getState() {
+        return this.state;
     }
     setState(nextState, callback) {
         super.setState(nextState, function() {

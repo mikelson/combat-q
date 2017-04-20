@@ -166,6 +166,14 @@ import {
     ReadiedTriggeringAlertID
 } from "./Strings";
 import {
+    getRound,
+    setRound,
+    getFirst,
+    setFirst,
+    getCurrent,
+    setCurrent
+} from "./EncounterDb";
+import {
     DmNumRecordsInCategory,
     queryPerformerP, 
     getPrev, 
@@ -201,18 +209,38 @@ import {
     getOwner
 } from "./EffectDb";
 
-class CombatQ {
+class Encounter {
     /* Combat round.
      * Less than zero - No combat is in progress.
      * Exactly zero - Surprise round of combat in progress.
      * More than zero - Normal combat in progress, value is the current round number
      */
-    round: -1;
+    get round() {
+        return getRound(this);
+    }
+    set round(val) {
+        setRound(this, val);
+    }
 
-    /* The first performer in the initiative list */
-    first: undefined;
-    /* The current performe in the combat */
-    current: undefined;
+    /* The first Performer in the initiative list */
+    get first() {
+        return getFirst(this);
+    }
+    set first(val) {
+        setFirst(this, val);
+    }
+
+    /* The current Performer in the combat */
+    get current() {
+        return getCurrent(this);
+    }
+    set current(val) {
+        setCurrent(this, val);
+    }
+
+    constructor() {
+        this.round = -1;
+    }
 
     /*
      * Start a combat. Function uses a database of performers, which has been
@@ -225,7 +253,7 @@ class CombatQ {
         // iterate over all active characters
         for (let i=0; i < iLastChar; i++) {
             const c = this.queryPerformerP(i);
-            if ( c && c.isAware() ) nAware++;
+            if ( c && isAware(c) ) nAware++;
         }
         if ( (nAware===0) || (nAware===iLastChar) ) {
             // no combatants are aware, or all combatants are aware
@@ -334,15 +362,15 @@ class Performer {
     removeFromInitList(){
         const leader = getPrev();
         const follower = this.getNext();
-        if ( (leader===this) && (follower===this) ) { // not in or last performer in list
+        if ( (leader.id === this.id) && (follower.id === this.id) ) { // not in or last performer in list
             if ( !this.encounter.first || !this.encounter.current ) { // there is no list - no need to do anything
                 return true;
             } else { // only performer in list - end combat
                 return this.encounter.EncounterEnd();
             }           
         }
-        ErrFatalDisplayIf( (leader===this) || (follower===this) 
-            || !leader || !follower, "Corrupt initiative list.");
+        ErrFatalDisplayIf( !leader || !follower || (leader.id === this.id) || (follower.id === this.id),
+            "Corrupt initiative list.");
         /* Isolate this performer from the initiative list. */
         // set next to this
         setNext(this, this);
@@ -354,11 +382,11 @@ class Performer {
         // set follower's previous to leader
         if (follower) setPrev(follower, leader);
         // If removing the first performer in init list, make the next one first.
-        if (this === this.encounter.first) {
+        if (this.id === this.encounter.first.id) {
             this.encounter.first = follower;
         }
         // If removing the current performer, make the next one current.
-        if (this === this.encounter.current) {
+        if (this.id === this.encounter.current.id) {
             this.encounter.current = follower;
         }
         return true;
@@ -394,10 +422,10 @@ class Performer {
      */
     die() {
         const nextOld = this.getNext();
-        if ( this === nextOld  || !nextOld ) { // last in init list or corrupt list
+        if (!nextOld || this.id === nextOld.id) { // last in init list or corrupt list
             this.encounter.EncounterEnd();
         } else {
-            if (nextOld === this.encounter.first) this.encounter.round++;
+            if (nextOld.id === this.encounter.first.id) this.encounter.round++;
             this.deactivate();
             this.encounter.current = nextOld;
             this.encounter.current.prepareToAct();
@@ -438,19 +466,19 @@ class Character extends Performer {
                         const nameThat = getNameHandle(that);
                         const result = ResolveTieDialog(nameThat, nameThis);
                         if (result === 1) { // this character is faster than that
-                            if (that===this.encounter.first) this.encounter.first = this;
+                            if (that.id === this.encounter.first.id) this.encounter.first = this;
                             // insert this character before the slower Performer
                             that.insertBefore(this); 
                             return;
                         }
                     } else if (modThis > modThat) { // that performer is slower
-                        if (that===this.encounter.first) this.encounter.first = this;
+                        if (that.id === this.encounter.first.id) this.encounter.first = this;
                         that.insertBefore(this);
                         return;
                     } // end of modifier comparison condition
                 } // end of CHARACTER conditional
             } else if (initThis > initThat) { // that performer is slower
-                if (that === this.encounter.first) this.encounter.first = this;
+                if (that.id === this.encounter.first.id) this.encounter.first = this;
                 that.insertBefore(this);
                 return;
             } // end of initiative comparison conditional
@@ -485,7 +513,7 @@ class Character extends Performer {
     act() {
         this.setTakingReadied(false);
         this.encounter.current = this.getNext();
-        if (this.encounter.current === this.encounter.first) { // Start of the list - new round
+        if (this.encounter.current.id === this.encounter.first.id) { // Start of the list - new round
             this.encounter.round++;
         }
         this.encounter.current.prepareToAct();
@@ -517,7 +545,7 @@ class Character extends Performer {
         }
         // go to old next character (if order changed)
         const nextNew = this.getNext();
-        if ( (nextOld===nextNew) && (firstOld===this.encounter.first) ) { // no change to init list
+        if ( (nextOld.id === nextNew.id) && (firstOld.id === this.encounter.first.id) ) { // no change to init list
             this.encounter.current = this; // let this performer go again with new initiative
         } else { // order changed
             this.encounter.current = nextOld; // continue with next performer
@@ -589,7 +617,7 @@ class Character extends Performer {
         // indicate that this is a readied action
         setTakingReadied(this, true);
         // move interrupter to start of list, if needed
-        if (this.encounter.current === this.encounter.first) {
+        if (this.encounter.current.id === this.encounter.first.id) {
             this.encounter.first = this;
         }
         // make interrupter current
@@ -608,9 +636,9 @@ class Character extends Performer {
         }
         const oldNext = this.getNext();
         // Is this the last performer in the initiative list?
-        const wasLast = (oldNext===this.encounter.first);
+        const wasLast = (oldNext.id === this.encounter.first.id);
         // Is this the current performer?
-        const wasCurrent = (this===this.encounter.current);
+        const wasCurrent = (this.id === this.encounter.current.id);
         // reset initiative
         this.setInitiative( 20 + getModifier() );
         if (this !== oldNext) { // This is not the only performer in initiative list
@@ -623,7 +651,7 @@ class Character extends Performer {
            then no more changes needed. */
         if (wasCurrent===false) {
             return;
-        } else if ( wasLast && (this===this.encounter.first) ) {
+        } else if ( wasLast && (this.id === this.encounter.first.id) ) {
         /* If current performer was last, and is now first, 
            then it's a new turn and it goes again. */
             this.encounter.round++;
@@ -689,7 +717,7 @@ class Effect extends Performer {
                     // this means effects with same init will go in order added to list
                     p.insertBefore(this);
                     // update start of initiative list, if necessary
-                    if (p===this.encounter.first) this.encounter.first = this;
+                    if (p.id === this.encounter.first.id) this.encounter.first = this;
                     // we're done
                     return;
                 }
@@ -710,14 +738,14 @@ class Effect extends Performer {
         const next = this.getNext();
         if ( getRemaining(this) < 1) {
             // Effect is done - get rid of it
-            if (next === this) { // only performer in initiative list!
+            if (next.id === this.id) { // only performer in initiative list!
                 this.encounter.EncounterEndForce();
                 return;
             }
             this.deactivate();
         }
         this.encounter.current = next;
-        if (this.encounter.first === this.encounter.current) this.encounter.round++; // last performer in init list 
+        if (this.encounter.first.id === this.encounter.current.id) this.encounter.round++; // last performer in init list 
         this.encounter.current.prepareToAct();
     }
 
@@ -763,3 +791,8 @@ class Effect extends Performer {
         }
     }
 }
+
+export {
+    Encounter,
+    Character,
+};

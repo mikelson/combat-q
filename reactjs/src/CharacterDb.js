@@ -1,33 +1,35 @@
+import {get, set} from './PerformerDb.js';
+
 function getModifier(character) {
-    return character.modifier;
+    return get(character, "modifier");
 }
 
 function isAware(character) {
-    return character.isAware;
+    return get(character, "isAware");
 }
 function setAware(character, value) {
-    character.isAware = value;
+    set(character, "isAware", value);
 }
 
 function isTakingReadied(character) {
-    return character.isTakingReadied;
+    return get(character, "isTakingReadied");
 }
 function setTakingReadied(character, value) {
     return character.isTakingReadied = value;
 }
 
 function isReadied(character) {
-    return character.isReadied;
+    return get(character, "isReadied");
 }
 function setReadied(character, value) {
-    character.isReadied = value;
+    set(character, "isReadied", value);
 }
 
 function isDelaying(character) {
-    return character.isDelaying;
+    return get(character, "isDelaying");
 }
 function setDelaying(character, value) {
-    character.isDelaying = value;
+    set(character, "isDelaying", value);
 }
 
 export {

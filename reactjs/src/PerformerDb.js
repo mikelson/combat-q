@@ -1,7 +1,19 @@
-const Performers = [];
+import update from 'immutability-helper';
+
+let getState;
+let setState;
+
+const PerformerDb = {
+    setGetState: function(f) {
+        getState = f;
+    },
+    setSetState: function(f) {
+        setState = f;
+    }
+};
 
 function DmNumRecordsInCategory() {
-    return Performers.length;
+    return getState().performers.length;
 }
 
 /*
@@ -10,39 +22,58 @@ function DmNumRecordsInCategory() {
  * Returns - reference to object. NULL if there is no entry for that index.
  */
 function queryPerformerP(iEncounter) {
-    return Performers[iEncounter];
+    return getState().performers[iEncounter];
+}
+
+function get(performer, key) {
+    performer = getState().performers.find(p => p.id === performer.id);
+    return performer && performer[key];
+}
+
+function set(performer, key, value) {
+    const performers = getState().performers;
+    const index = performers.findIndex(p => p.id === performer.id);
+    const currentPerformer = performers[index];
+    const updateObj = {};
+    updateObj[key] = {$set: value};
+    const updatedPerformer = update(currentPerformer, updateObj);
+    setState(update(getState(), {
+        performers: {$splice: [[index, 1, updatedPerformer]]}
+    }));
 }
 
 function getPrev(performer) {
-    return performer.prev;
+    const id = get(performer, "prevId");
+    return getState().performers.find(p => p.id === id);
 }
 function setPrev(performer, value) {
-    performer.prev = value;
+    set(performer, "prevId", value && value.id);
 }
 
 function getNext(performer) {
-    return performer.next;
+    const id = get(performer, "nextId");
+    return getState().performers.find(p => p.id === id);
 }
 function setNext(performer, value) {
-    performer.next = value;
+    set(performer, "nextId", value && value.id);
 }
 
 function isActive(performer) {
-    return performer.isActive;
+    return get(performer, "isActive");
 }
 function setActive(performer, value) {
-    performer.isActive = value;
+    set(performer, "isActive", value);
 }
 
 function getInitiative(performer) {
-    return performer.initiative;
+    return get(performer, "initiative");
 }
 function setInitiative(performer, value) {
-    performer.initiative = value;
+    set(performer, "initiative", value);
 }
 
 function getNameHandle(performer) {
-    return performer.name;
+    return get(performer, "name");
 }
 
 /*
@@ -84,6 +115,7 @@ function insertBefore(performer, newbie) {
 }
 
 export {
+    PerformerDb,
     DmNumRecordsInCategory,
     queryPerformerP, 
     getPrev, 
